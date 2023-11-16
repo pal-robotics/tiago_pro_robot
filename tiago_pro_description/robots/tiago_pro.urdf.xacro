@@ -38,6 +38,8 @@
 <xacro:property name="ft_sensor_left" value="$(arg ft_sensor_left)" />
 <xacro:property name="ft_sensor_right" value="$(arg ft_sensor_right)" />
 <xacro:property name="arm_model" value="tiago-pro" />
+<xacro:arg name="fixed_torso" default="false" />
+<xacro:property name="fixed_torso" value="$(arg fixed_torso)" />
 
 <xacro:if
   value="${end_effector_left not in ['pal-pro-gripper', 'false', False, 'custom', 'no-ee']}">
