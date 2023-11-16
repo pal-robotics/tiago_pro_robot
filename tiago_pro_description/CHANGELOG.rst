@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.12 (2023-11-16)
+-------------------
 * Merge branch 'fixed_torso_argument_pro' into 'master'
   added fixed torso argument to TIAGo pro
   See merge request robots/tiago_pro_robot!21
