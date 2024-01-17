@@ -9,7 +9,9 @@
        value="torso_controller
               mobile_base_controller
               wheels_current_limit_controller
-              head_controller"/>
+              head_controller
+              arm_left_controller
+              arm_right_controller"/>
 
   <node name="default_controllers_spawner"
         pkg="controller_manager" type="spawner" output="screen"
