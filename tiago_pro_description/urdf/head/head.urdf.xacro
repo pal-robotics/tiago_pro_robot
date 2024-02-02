@@ -25,8 +25,8 @@
   <xacro:property name="head_max_vel"  value="3.0" />
   <xacro:property name="head_1_lower_limit" value="-55"/>
   <xacro:property name="head_1_upper_limit" value="55"/>
-  <xacro:property name="head_2_lower_limit" value="-20"/>
-  <xacro:property name="head_2_upper_limit" value="55"/>
+  <xacro:property name="head_2_lower_limit" value="-55"/>
+  <xacro:property name="head_2_upper_limit" value="20"/>
 
   <xacro:property name="head_eps"      value="${0.07}" />
   <xacro:property name="head_1_joint_offset"      value="${0.0}" />
