@@ -10,8 +10,10 @@
               mobile_base_controller
               wheels_current_limit_controller
               head_controller
-              arm_left_controller
-              arm_right_controller"/>
+              "/>
+	  
+  <!-- The following controllers 'arm_left_controller' and 'arm_right_controller' 
+	 already launched in the tiago2_torso_up node-->
 
   <node name="default_controllers_spawner"
         pkg="controller_manager" type="spawner" output="screen"
