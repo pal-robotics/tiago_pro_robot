@@ -16,11 +16,11 @@
   </node>
 
   <!-- Robot pose publisher -->
-  <!-- <node pkg="robot_pose" type="robot_pose_node" name="robot_pose_publisher" output="screen"/> -->
+  <node pkg="robot_pose" type="robot_pose_node" name="robot_pose_publisher" output="screen"/> 
 
   <!-- Torso up and start the controllers -->
   <!-- Torso up > Load the actuators PID > Start left and right arm position controllers -->
-  <node pkg="get_out_of_collision" type="tiago_pro_torso_up_startup" name="tiago_pro_torso_up_startup" output="screen"/>
+  <node pkg="get_out_of_collision" type="tiago2_torso_up_startup" name="tiago2_torso_up_startup" output="screen"/>
 
   <!-- TF lookup -->
   <node pkg="tf_lookup" type="tf_lookup" name="tf_lookup" output="screen"/>
