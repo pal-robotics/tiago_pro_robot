@@ -10,7 +10,9 @@
     <!-- Joint state controllers -->
     <include file="$(find tiago_pro_controller_configuration)/launch/joint_state_controller.launch"/>
     <!-- Default controllers -->
-    <include file="$(find tiago_pro_controller_configuration)/launch/default_controllers.launch"/>
+    <include file="$(find tiago_pro_controller_configuration)/launch/default_controllers.launch">
+      <arg name="is_simulation" value="$(arg is_simulation)"/>
+    </include>
    
     <!-- Impedance controllers loaded as stopped -->
     <include file="$(find tiago_pro_controller_configuration)/launch/impedance_controllers.launch"/>
