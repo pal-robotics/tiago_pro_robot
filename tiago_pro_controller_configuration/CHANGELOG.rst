@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_controller_configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.13 (2024-02-19)
+-------------------
 * Merge branch 'tpe/fix_motions' into 'master'
   Update motions with the new arm sign change + fix controllers
   See merge request robots/tiago_pro_robot!22
