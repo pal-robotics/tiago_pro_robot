@@ -13,17 +13,17 @@ arm_left_impedance_controller:
     arm_left_1_joint: {kp: -2.5, kd: 0.0}
     arm_left_2_joint: {kp: -8.0, kd: 0.0}
     arm_left_3_joint: {kp: -2.5, kd: 0.0}
-    arm_left_4_joint: {kp: 6.0, kd: 0.0}
+    arm_left_4_joint: {kp: -6.0, kd: 0.0}
     arm_left_5_joint: {kp: -2.0, kd: 0.0}
     arm_left_6_joint: {kp: -3.0, kd: -0.25}
     arm_left_7_joint: {kp: -2.0, kd: 0.0}
   motor_params:
     arm_left_1_joint: {motor_torque_constant: -0.103, reduction_ratio: 101.0}
-    arm_left_2_joint: {motor_torque_constant: -0.061, reduction_ratio: 121.0}
+    arm_left_2_joint: {motor_torque_constant: -0.085, reduction_ratio: 121.0}
     arm_left_3_joint: {motor_torque_constant: -0.042, reduction_ratio: 101.0}
-    arm_left_4_joint: {motor_torque_constant: 0.032, reduction_ratio: 101.0}
+    arm_left_4_joint: {motor_torque_constant: -0.032, reduction_ratio: 101.0}
     arm_left_5_joint: {motor_torque_constant: -1.2, reduction_ratio: 101.0}
-    arm_left_6_joint: {motor_torque_constant: -0.038, reduction_ratio: 101.1}
+    arm_left_6_joint: {motor_torque_constant: -0.03, reduction_ratio: 101.1}
     arm_left_7_joint: {motor_torque_constant: 0.103, reduction_ratio: 101.1}
   constraints:
     goal_time: 0.6
@@ -57,17 +57,17 @@ arm_right_impedance_controller:
     arm_right_1_joint: {kp: -5.0, kd: 0.0}
     arm_right_2_joint: {kp: -6.0, kd: 0.0}
     arm_right_3_joint: {kp: -2.5, kd: -0.3}
-    arm_right_4_joint: {kp: 5.0, kd: 0.2}
+    arm_right_4_joint: {kp: -5.0, kd: -0.2}
     arm_right_5_joint: {kp: -3.0, kd: 0.0}
     arm_right_6_joint: {kp: -2.5, kd: -0.5}
     arm_right_7_joint: {kp: -2.5, kd: 0.0}
   motor_params:
     arm_right_1_joint: {motor_torque_constant: -0.05, reduction_ratio: 101.0}
-    arm_right_2_joint: {motor_torque_constant: -0.069, reduction_ratio: 121.0}
+    arm_right_2_joint: {motor_torque_constant: -0.04, reduction_ratio: 121.0}
     arm_right_3_joint: {motor_torque_constant: -0.035, reduction_ratio: 101.0}
-    arm_right_4_joint: {motor_torque_constant: 0.04, reduction_ratio: 101.0}
+    arm_right_4_joint: {motor_torque_constant: -0.04, reduction_ratio: 101.0}
     arm_right_5_joint: {motor_torque_constant: -0.17, reduction_ratio: 101.0}
-    arm_right_6_joint: {motor_torque_constant: -0.03, reduction_ratio: 101.1}
+    arm_right_6_joint: {motor_torque_constant: -0.025, reduction_ratio: 101.1}
     arm_right_7_joint: {motor_torque_constant: 0.103, reduction_ratio: 101.1}
   constraints:
     goal_time: 0.6
