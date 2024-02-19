@@ -2,6 +2,18 @@
 Changelog for package tiago_pro_controller_configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'tpe/fix_motions' into 'master'
+  Update motions with the new arm sign change + fix controllers
+  See merge request robots/tiago_pro_robot!22
+* update gravity constants & impedance
+* Add is_simulation in the default controller to spawn different controllers on simulation than on the real robot
+* remove arm controllers from default controllers
+* added advanced grasping launch arguments
+* Update motions with the new arm sign change + fix controllers
+* Contributors: Adria Roig, ileniaperrella, sergiacosta, thomas.peyrucain
+
 0.0.12 (2023-11-16)
 -------------------
 

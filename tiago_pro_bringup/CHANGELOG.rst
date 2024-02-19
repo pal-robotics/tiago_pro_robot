@@ -2,6 +2,18 @@
 Changelog for package tiago_pro_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'tpe/fix_motions' into 'master'
+  Update motions with the new arm sign change + fix controllers
+  See merge request robots/tiago_pro_robot!22
+* fix node name for torso_up and uncomment robot_pose to avoid error in
+  the log
+* Remove ft harware for now
+* created new motions
+* Update motions with the new arm sign change + fix controllers
+* Contributors: Adria Roig, ileniaperrella, sergiacosta, thomas.peyrucain
+
 0.0.12 (2023-11-16)
 -------------------
 

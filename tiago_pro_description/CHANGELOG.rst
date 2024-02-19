@@ -2,6 +2,14 @@
 Changelog for package tiago_pro_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'tpe/fix_motions' into 'master'
+  Update motions with the new arm sign change + fix controllers
+  See merge request robots/tiago_pro_robot!22
+* fix head limits
+* Contributors: Adria Roig, sergiacosta
+
 0.0.12 (2023-11-16)
 -------------------
 * Merge branch 'fixed_torso_argument_pro' into 'master'
