@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <arg name="fingerprint_pkg"/>
+  <arg name="namespace" default="actuators_data"/>
+
+  <!-- Load actuator data for each actuator -->
+  <include file="$(find tiago_pro_bringup)/launch/load_actuator_data.launch">
+    <arg name="motor_name" value="arm_left_1_motor"/>
+    <arg name="fingerprint_pkg" value="$(arg fingerprint_pkg)"/>
+    <arg name="namespace" value="$(arg namespace)"/>
+  </include>
+
+  <include file="$(find tiago_pro_bringup)/launch/load_actuator_data.launch">
+    <arg name="motor_name" value="arm_left_2_motor"/>
+    <arg name="fingerprint_pkg" value="$(arg fingerprint_pkg)"/>
+    <arg name="namespace" value="$(arg namespace)"/>
+  </include>
+
+  <include file="$(find tiago_pro_bringup)/launch/load_actuator_data.launch">
+    <arg name="motor_name" value="arm_left_3_motor"/>
+    <arg name="fingerprint_pkg" value="$(arg fingerprint_pkg)"/>
+    <arg name="namespace" value="$(arg namespace)"/>
+  </include>
+
+  <include file="$(find tiago_pro_bringup)/launch/load_actuator_data.launch">
+    <arg name="motor_name" value="arm_left_4_motor"/>
+    <arg name="fingerprint_pkg" value="$(arg fingerprint_pkg)"/>
+    <arg name="namespace" value="$(arg namespace)"/>
+  </include>
+
+  <include file="$(find tiago_pro_bringup)/launch/load_actuator_data.launch">
+    <arg name="motor_name" value="arm_left_5_motor"/>
+    <arg name="fingerprint_pkg" value="$(arg fingerprint_pkg)"/>
+    <arg name="namespace" value="$(arg namespace)"/>
+  </include>
+
+  <include file="$(find tiago_pro_bringup)/launch/load_actuator_data.launch">
+    <arg name="motor_name" value="arm_left_6_motor"/>
+    <arg name="fingerprint_pkg" value="$(arg fingerprint_pkg)"/>
+    <arg name="namespace" value="$(arg namespace)"/>
+  </include>
+
+  <include file="$(find tiago_pro_bringup)/launch/load_actuator_data.launch">
+    <arg name="motor_name" value="arm_left_7_motor"/>
+    <arg name="fingerprint_pkg" value="$(arg fingerprint_pkg)"/>
+    <arg name="namespace" value="$(arg namespace)"/>
+  </include>
+
+  <include file="$(find tiago_pro_bringup)/launch/load_actuator_data.launch">
+    <arg name="motor_name" value="arm_right_1_motor"/>
+    <arg name="fingerprint_pkg" value="$(arg fingerprint_pkg)"/>
+    <arg name="namespace" value="$(arg namespace)"/>
+  </include>
+
+  <include file="$(find tiago_pro_bringup)/launch/load_actuator_data.launch">
+    <arg name="motor_name" value="arm_right_2_motor"/>
+    <arg name="fingerprint_pkg" value="$(arg fingerprint_pkg)"/>
+    <arg name="namespace" value="$(arg namespace)"/>
+  </include>
+
+  <include file="$(find tiago_pro_bringup)/launch/load_actuator_data.launch">
+    <arg name="motor_name" value="arm_right_3_motor"/>
+    <arg name="fingerprint_pkg" value="$(arg fingerprint_pkg)"/>
+    <arg name="namespace" value="$(arg namespace)"/>
+  </include>
+
+  <include file="$(find tiago_pro_bringup)/launch/load_actuator_data.launch">
+    <arg name="motor_name" value="arm_right_4_motor"/>
+    <arg name="fingerprint_pkg" value="$(arg fingerprint_pkg)"/>
+    <arg name="namespace" value="$(arg namespace)"/>
+  </include>
+
+  <include file="$(find tiago_pro_bringup)/launch/load_actuator_data.launch">
+    <arg name="motor_name" value="arm_right_5_motor"/>
+    <arg name="fingerprint_pkg" value="$(arg fingerprint_pkg)"/>
+    <arg name="namespace" value="$(arg namespace)"/>
+  </include>
+
+  <include file="$(find tiago_pro_bringup)/launch/load_actuator_data.launch">
+    <arg name="motor_name" value="arm_right_6_motor"/>
+    <arg name="fingerprint_pkg" value="$(arg fingerprint_pkg)"/>
+    <arg name="namespace" value="$(arg namespace)"/>
+  </include>
+
+  <include file="$(find tiago_pro_bringup)/launch/load_actuator_data.launch">
+    <arg name="motor_name" value="arm_right_7_motor"/>
+    <arg name="fingerprint_pkg" value="$(arg fingerprint_pkg)"/>
+    <arg name="namespace" value="$(arg namespace)"/>
+  </include>
+
+</launch>

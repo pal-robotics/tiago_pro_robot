@@ -1,0 +1,8 @@
+spring_stiffness: 1666.6667
+friction_model_params:
+  k1: -8.0
+  k2: 0.7
+  k3: 0.0
+motor_encoder_resolution: 524288
+joint_encoder_resolution: 262144
+torque_offset: 0.0

@@ -11,6 +11,10 @@
   <buildtool_depend>catkin</buildtool_depend>
 
   <exec_depend>current_limit_controller</exec_depend>
+  <exec_depend>joint_torque_sensor_state_controller</exec_depend>
+  <exec_depend>mode_state_controller</exec_depend>
+  <exec_depend>temperature_sensor_controller</exec_depend>
+  <exec_depend>actuator_pid_controllers</exec_depend>
   <exec_depend>imu_sensor_controller</exec_depend>
   <exec_depend>joint_state_controller</exec_depend>
   <exec_depend>joint_trajectory_controller</exec_depend>
