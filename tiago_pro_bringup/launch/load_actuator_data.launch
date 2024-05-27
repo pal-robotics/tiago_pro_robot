@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <arg name="motor_name"/>
+  <arg name="fingerprint_pkg"/>
+  <arg name="namespace" default="actuators_data"/>
+
+  <rosparam command='load' ns="$(arg namespace)/$(arg motor_name)" 
+            file='$(find tiago_pro_bringup)/config/actuators_data/$(arg motor_name).yaml' />
+
+  <param name="$(arg namespace)/$(arg motor_name)/fingerprint"
+         textfile="$(eval find(fingerprint_pkg) + '/config/fingerprints/' + motor_name + '.csv')" />
+
+</launch>

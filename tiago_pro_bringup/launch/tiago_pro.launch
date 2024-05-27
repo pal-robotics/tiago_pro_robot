@@ -9,6 +9,12 @@
   <!-- Robot model -->
   <include file="$(find tiago_pro_description)/robots/upload.launch"/>
 
+  <!-- Load parameters for torque estimation-->
+  <include file="$(find tiago_pro_bringup)/launch/load_actuators_data.launch">
+    <arg name="namespace"       value="actuators_data"/>
+    <arg name="fingerprint_pkg" value="tiago_pro_bringup"/>
+  </include>
+
   <!--[> Bring up robot <]-->
   <include file="$(find tiago_pro_bringup)/launch/tiago_pro_bringup.launch"/>
 
