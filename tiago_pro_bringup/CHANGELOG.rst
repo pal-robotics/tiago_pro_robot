@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.14 (2024-05-29)
+-------------------
 * Merge branch 'dkt/feat/add-fingerprints' into 'master'
   Add joystick teleop
   See merge request robots/tiago_pro_robot!47
