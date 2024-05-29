@@ -2,6 +2,18 @@
 Changelog for package tiago_pro_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'dkt/feat/add-fingerprints' into 'master'
+  Add joystick teleop
+  See merge request robots/tiago_pro_robot!47
+* Add joystick teleop
+* Merge branch 'dkt/feat/add-fingerprints' into 'master'
+  fix node name for torso_up and uncomment robot_pose to avoid error in
+  See merge request robots/tiago_pro_robot!46
+* Add loading of fingerprints of motors on startup
+* Contributors: David ter Kuile, davidterkuile
+
 0.0.13 (2024-02-19)
 -------------------
 * Merge branch 'tpe/fix_motions' into 'master'
