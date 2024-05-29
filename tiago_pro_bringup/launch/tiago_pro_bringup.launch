@@ -30,4 +30,10 @@
 
   <!-- Launch play motion -->
   <include file="$(find tiago_pro_bringup)/launch/play_motion.launch"/>
+
+    <!-- Joystick controller -->
+  <include file="$(find tiago_pro_bringup)/launch/joystick_teleop.launch"/>
+
+
+
 </launch>
