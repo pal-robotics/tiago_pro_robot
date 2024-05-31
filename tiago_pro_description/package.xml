@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>tiago_pro_description</name>
-  <version>0.0.14</version>
+  <version>0.0.15</version>
   <description>The tiago_pro_description package</description>
 
   <maintainer email="narcis.miguel@pal-robotics.com">Narcis Miguel</maintainer>

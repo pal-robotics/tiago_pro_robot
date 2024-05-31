@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="3">
   <name>tiago_pro_bringup</name>
-  <version>0.0.14</version>
+  <version>0.0.15</version>
   <description>Launch files to upload the TIAGo pro robot description and start the controllers</description>
   <maintainer email="sai.kishor@pal-robotics.com">Sai Kishor Kothakota</maintainer>
   <author email="sai.kishor@pal-robotics.com">Sai Kishor Kothakota</author>
