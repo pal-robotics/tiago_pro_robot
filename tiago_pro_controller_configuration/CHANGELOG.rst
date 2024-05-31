@@ -2,6 +2,14 @@
 Changelog for package tiago_pro_controller_configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'dtk/fix/gripper-problems' into 'master'
+  Only load gripper controllers in sim
+  See merge request robots/tiago_pro_robot!48
+* Only load gripper controllers in sim
+* Contributors: David ter Kuile, davidterkuile
+
 0.0.14 (2024-05-29)
 -------------------
 * Merge branch 'dkt/feat/add-fingerprints' into 'master'
