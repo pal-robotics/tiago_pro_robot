@@ -2,6 +2,13 @@
 Changelog for package tiago_pro_controller_configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'fix/put_teleop_arg' into 'humble-devel'
+  Rollback is teleop arg
+  See merge request robots/tiago_pro_robot!196
+* Contributors: ileniaperrella
+
 2.1.4 (2026-04-13)
 ------------------
 * Fixing open loop param
