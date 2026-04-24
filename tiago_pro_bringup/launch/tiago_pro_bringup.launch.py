@@ -14,7 +14,9 @@
 
 
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, GroupAction
+from launch.conditions import IfCondition
+from launch.substitutions import LaunchConfiguration
 
 from launch_pal.include_utils import include_scoped_launch_py_description
 from launch_pal.arg_utils import LaunchArgumentsBase
@@ -50,6 +52,12 @@ class LaunchArguments(LaunchArgumentsBase):
     namespace: DeclareLaunchArgument = CommonArgs.namespace
     is_public_sim: DeclareLaunchArgument = CommonArgs.is_public_sim
     gazebo_version: DeclareLaunchArgument = CommonArgs.gazebo_version
+    play_motion2: DeclareLaunchArgument = DeclareLaunchArgument(
+        "play_motion2",
+        default_value="True",
+        description="Launch play_motion2",
+        choices=["True", "False"],
+    )
 
 
 def declare_actions(launch_description: LaunchDescription, launch_args: LaunchArguments):
@@ -74,18 +82,21 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
 
     launch_description.add_action(default_controllers)
 
-    play_motion2 = include_scoped_launch_py_description(
-        pkg_name='tiago_pro_bringup',
-        paths=['launch', 'tiago_pro_play_motion2.launch.py'],
-        launch_arguments={"arm_type_right": launch_args.arm_type_right,
-                          "arm_type_left": launch_args.arm_type_left,
-                          "end_effector_right": launch_args.end_effector_right,
-                          "end_effector_left": launch_args.end_effector_left,
-                          "wrist_model_right": launch_args.wrist_model_right,
-                          "wrist_model_left": launch_args.wrist_model_left,
-                          "use_sim_time": launch_args.use_sim_time,
-                          "has_teleop_arms": launch_args.has_teleop_arms
-                          })
+    play_motion2 = GroupAction(
+        condition=IfCondition(LaunchConfiguration("play_motion2")),
+        actions=[include_scoped_launch_py_description(
+            pkg_name='tiago_pro_bringup',
+            paths=['launch', 'tiago_pro_play_motion2.launch.py'],
+            launch_arguments={"arm_type_right": launch_args.arm_type_right,
+                              "arm_type_left": launch_args.arm_type_left,
+                              "end_effector_right": launch_args.end_effector_right,
+                              "end_effector_left": launch_args.end_effector_left,
+                              "wrist_model_right": launch_args.wrist_model_right,
+                              "wrist_model_left": launch_args.wrist_model_left,
+                              "use_sim_time": launch_args.use_sim_time,
+                              "has_teleop_arms": launch_args.has_teleop_arms
+                              })]
+    )
 
     launch_description.add_action(play_motion2)
 
