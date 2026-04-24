@@ -37,14 +37,14 @@
   <xacro:macro name="ros2_control_arms">
     <!-- arm left -->
     <xacro:if value="${has_arm_left}">
-      <xacro:ros2_control_arm name="arm_left_1" reduction="121.0" offset_value="${arm_left_1_joint_offset}" use_sea_transmission="${torque_estimation}" />
-      <xacro:ros2_control_arm name="arm_left_2" reduction="121.0" offset_value="${arm_left_2_joint_offset}" use_sea_transmission="${torque_estimation}" />
-      <xacro:ros2_control_arm name="arm_left_3" reduction="101.0" offset_value="${arm_left_3_joint_offset}" use_sea_transmission="${torque_estimation}" />
-      <xacro:ros2_control_arm name="arm_left_4" reduction="101.0" offset_value="${arm_left_4_joint_offset}" use_sea_transmission="${torque_estimation}" />
-      <xacro:ros2_control_arm name="arm_left_5" reduction="101.0" offset_value="${arm_left_5_joint_offset}" use_sea_transmission="${torque_estimation}" />
+      <xacro:ros2_control_arm name="arm_left_1" reduction="121.0" offset_value="${arm_left_1_joint_offset}" use_sea_transmission="${torque_estimation}" initial_position="0.5" />
+      <xacro:ros2_control_arm name="arm_left_2" reduction="121.0" offset_value="${arm_left_2_joint_offset}" use_sea_transmission="${torque_estimation}" initial_position="-1.83" />
+      <xacro:ros2_control_arm name="arm_left_3" reduction="101.0" offset_value="${arm_left_3_joint_offset}" use_sea_transmission="${torque_estimation}" initial_position="-0.47" />
+      <xacro:ros2_control_arm name="arm_left_4" reduction="101.0" offset_value="${arm_left_4_joint_offset}" use_sea_transmission="${torque_estimation}" initial_position="-2.35" />
+      <xacro:ros2_control_arm name="arm_left_5" reduction="101.0" offset_value="${arm_left_5_joint_offset}" use_sea_transmission="${torque_estimation}" initial_position="0.0" />
       <xacro:if value="${wrist_model_left != 'short-wrist'}">
-        <xacro:ros2_control_arm name="arm_left_6" reduction="101.0" offset_value="${arm_left_6_joint_offset}" use_sea_transmission="${torque_estimation}" />
-        <xacro:ros2_control_arm name="arm_left_7" reduction="101.0" offset_value="${arm_left_7_joint_offset}" use_sea_transmission="${torque_estimation}" />
+        <xacro:ros2_control_arm name="arm_left_6" reduction="101.0" offset_value="${arm_left_6_joint_offset}" use_sea_transmission="${torque_estimation}" initial_position="-1.2" />
+        <xacro:ros2_control_arm name="arm_left_7" reduction="101.0" offset_value="${arm_left_7_joint_offset}" use_sea_transmission="${torque_estimation}" initial_position="0.0" />
       </xacro:if>
       <xacro:if value="${has_ft_sensor_left}">
         <xacro:include filename="$(find pal_urdf_utils)/urdf/ft_sensors/ftsensor.ros2_control.xacro"/>
@@ -58,14 +58,14 @@
 
     <!-- arm right -->
     <xacro:if value="${has_arm_right}">
-      <xacro:ros2_control_arm name="arm_right_1" reduction="121.0" offset_value="${arm_right_1_joint_offset}" use_sea_transmission="${torque_estimation}" />
-      <xacro:ros2_control_arm name="arm_right_2" reduction="121.0" offset_value="${arm_right_2_joint_offset}" use_sea_transmission="${torque_estimation}" />
-      <xacro:ros2_control_arm name="arm_right_3" reduction="101.0" offset_value="${arm_right_3_joint_offset}" use_sea_transmission="${torque_estimation}" />
-      <xacro:ros2_control_arm name="arm_right_4" reduction="101.0" offset_value="${arm_right_4_joint_offset}" use_sea_transmission="${torque_estimation}" />
-      <xacro:ros2_control_arm name="arm_right_5" reduction="101.0" offset_value="${arm_right_5_joint_offset}" use_sea_transmission="${torque_estimation}" />
+      <xacro:ros2_control_arm name="arm_right_1" reduction="121.0" offset_value="${arm_right_1_joint_offset}" use_sea_transmission="${torque_estimation}" initial_position="-0.5" />
+      <xacro:ros2_control_arm name="arm_right_2" reduction="121.0" offset_value="${arm_right_2_joint_offset}" use_sea_transmission="${torque_estimation}" initial_position="-1.83" />
+      <xacro:ros2_control_arm name="arm_right_3" reduction="101.0" offset_value="${arm_right_3_joint_offset}" use_sea_transmission="${torque_estimation}" initial_position="0.47" />
+      <xacro:ros2_control_arm name="arm_right_4" reduction="101.0" offset_value="${arm_right_4_joint_offset}" use_sea_transmission="${torque_estimation}" initial_position="-2.35" />
+      <xacro:ros2_control_arm name="arm_right_5" reduction="101.0" offset_value="${arm_right_5_joint_offset}" use_sea_transmission="${torque_estimation}" initial_position="0.0" />
       <xacro:if value="${wrist_model_right != 'short-wrist'}">
-        <xacro:ros2_control_arm name="arm_right_6" reduction="101.0" offset_value="${arm_right_6_joint_offset}" use_sea_transmission="${torque_estimation}" />
-        <xacro:ros2_control_arm name="arm_right_7" reduction="101.0" offset_value="${arm_right_7_joint_offset}" use_sea_transmission="${torque_estimation}" />
+        <xacro:ros2_control_arm name="arm_right_6" reduction="101.0" offset_value="${arm_right_6_joint_offset}" use_sea_transmission="${torque_estimation}" initial_position="-1.2" />
+        <xacro:ros2_control_arm name="arm_right_7" reduction="101.0" offset_value="${arm_right_7_joint_offset}" use_sea_transmission="${torque_estimation}" initial_position="0.0" />
       </xacro:if>
       <xacro:if value="${has_ft_sensor_right}">
         <xacro:include filename="$(find pal_urdf_utils)/urdf/ft_sensors/ftsensor.ros2_control.xacro"/>
