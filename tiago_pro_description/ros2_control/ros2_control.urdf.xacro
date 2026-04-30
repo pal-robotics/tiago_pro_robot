@@ -54,6 +54,9 @@
       <xacro:if value="${end_effector_left == 'pal-pro-gripper'}">
         <xacro:ros2_control_pal_pro_gripper name="gripper_left" reduction="1.0" />
       </xacro:if>
+      <xacro:if value="${end_effector_left == 'pal-atc'}">
+        <xacro:ros2_control_pal_atc name="gripper_left" reduction="1.0" />
+      </xacro:if>
     </xacro:if>
 
     <!-- arm right -->
@@ -73,8 +76,10 @@
       </xacro:if>
 
       <xacro:if value="${end_effector_right == 'pal-pro-gripper'}">
-        <!-- pal-pro-gripper -->
         <xacro:ros2_control_pal_pro_gripper name="gripper_right" reduction="1.0" />
+      </xacro:if>
+      <xacro:if value="${end_effector_right == 'pal-atc'}">
+        <xacro:ros2_control_pal_atc name="gripper_right" reduction="1.0" />
       </xacro:if>
     </xacro:if>
 
@@ -169,6 +174,10 @@
 
     <xacro:if value="${end_effector_left == 'allegro-hand' or end_effector_right == 'allegro-hand' or end_effector_teleop_left == 'allegro-hand' or end_effector_teleop_right == 'allegro-hand'}">
       <xacro:include filename="$(find allegro_hand_description)/urdf/allegro_hand.ros2_control.xacro" />
+    </xacro:if>
+
+    <xacro:if value="${end_effector_left == 'pal-atc' or end_effector_right == 'pal-atc'}">
+      <xacro:include filename="$(find pal_atc_description)/urdf/gripper.ros2_control.xacro" />
     </xacro:if>
     <!-- calibration offsets -->
     <xacro:include filename="$(arg calibration_offset_dir)/calibration_offset.urdf.xacro" />

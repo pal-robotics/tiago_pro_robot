@@ -182,10 +182,10 @@
   <xacro:if value="${arm_type_teleop_right not in ['tiago-pro-prototype', 'tiago-pro', 'tiago-pro-s', 'no-arm']}">
     <xacro:wrong_arm_type_teleop_right />
   </xacro:if>
-  <xacro:if value="${end_effector_left not in ['pal-pro-gripper', 'custom', 'no-end-effector', 'allegro-hand']}">
+  <xacro:if value="${end_effector_left not in ['pal-pro-gripper', 'custom', 'no-end-effector', 'allegro-hand', 'pal-atc']}">
     <xacro:wrong_end_effector_left />
   </xacro:if>
-  <xacro:if value="${end_effector_right not in ['pal-pro-gripper', 'custom', 'no-end-effector', 'allegro-hand']}">
+  <xacro:if value="${end_effector_right not in ['pal-pro-gripper', 'custom', 'no-end-effector', 'allegro-hand', 'pal-atc']}">
     <xacro:wrong_end_effector_right />
   </xacro:if>
   <xacro:if value="${end_effector_teleop_left not in ['pal-pro-gripper', 'custom', 'no-end-effector', 'allegro-hand']}">
