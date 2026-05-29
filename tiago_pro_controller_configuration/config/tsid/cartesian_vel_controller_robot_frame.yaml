@@ -3,13 +3,23 @@ ${ARM_SIDE_PREFIX}_cartesian_vel_controller_robot_frame:
     type: tsid_controllers/CartesianVelocityController
     
     joint_state_names:
-      - ${ARM_SIDE_PREFIX}_1_joint
-      - ${ARM_SIDE_PREFIX}_2_joint
-      - ${ARM_SIDE_PREFIX}_3_joint
-      - ${ARM_SIDE_PREFIX}_4_joint
-      - ${ARM_SIDE_PREFIX}_5_joint
-      - ${ARM_SIDE_PREFIX}_6_joint
-      - ${ARM_SIDE_PREFIX}_7_joint
+      - arm_left_1_joint
+      - arm_left_2_joint
+      - arm_left_3_joint
+      - arm_left_4_joint
+      - arm_left_5_joint
+      - arm_left_6_joint
+      - arm_left_7_joint
+      - arm_right_1_joint
+      - arm_right_2_joint
+      - arm_right_3_joint
+      - arm_right_4_joint
+      - arm_right_5_joint
+      - arm_right_6_joint
+      - arm_right_7_joint
+      - torso_lift_joint
+      - head_1_joint
+      - head_2_joint
 
     joint_command_names:
       - ${ARM_SIDE_PREFIX}_1_joint
@@ -26,7 +36,13 @@ ${ARM_SIDE_PREFIX}_cartesian_vel_controller_robot_frame:
       - ${EE_PREFIX}_${SIDE}_${EE_SUFFIX}
 
     velocity_scaling: 1.0
+    acceleration_scaling: 0.05
+
     local_frame: false
+    enable_limit_stop: false
+    enable_bounding_box: false
+    enable_collision_avoidance: true
+    stop_on_ee_collision: true
 
     posture_gain: 1.0
     manipulation_cube:
