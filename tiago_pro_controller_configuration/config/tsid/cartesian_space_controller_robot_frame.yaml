@@ -43,8 +43,8 @@ ${ARM_SIDE_PREFIX}_cartesian_space_controller_robot_frame:
     velocity_scaling: 1.0
     acceleration_scaling: 0.05
 
-    enable_bounding_box: false
-    enable_collision_avoidance: true
+    enable_bounding_box: true
+    enable_collision_avoidance: false
     stop_on_ee_collision: true
           
     manipulation_cube:
