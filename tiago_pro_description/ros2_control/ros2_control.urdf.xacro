@@ -237,6 +237,18 @@
           <xacro:ros2_control_allegro_hand name="gripper_teleop_left" pid_controllers="$(arg pid_controllers)" reduction="1.0" />
         </xacro:if>
       </ros2_control>
+
+      <!-- Odometry hardware interface: subscribes to /odom and exposes
+           base_odom/* state interfaces (position, orientation, linear/angular velocity).
+           Forwarded to the linear_feedback_controller via JointStateEstimator so the
+           MPC receives the actual base pose/twist (robot_has_free_flyer: true). -->
+      <ros2_control name="ros2_control_odometry_system" type="system">
+        <hardware>
+          <plugin>odometry_gz_hw_interface/OdometryHardware</plugin>
+          <param name="topic_name">/odom</param>
+        </hardware>
+        <sensor name="base_odom"/>
+      </ros2_control>
     </xacro:if>
 
     <!-- Hardware -->
