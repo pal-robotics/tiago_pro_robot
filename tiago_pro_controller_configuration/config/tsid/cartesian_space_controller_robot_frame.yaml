@@ -44,8 +44,10 @@ ${ARM_SIDE_PREFIX}_cartesian_space_controller_robot_frame:
     acceleration_scaling: 0.05
 
     enable_bounding_box: true
-    enable_collision_avoidance: false
-    stop_on_ee_collision: true
+    enable_collision_avoidance: true
+    stop_on_ee_collision: false
+    self_collision_d_max: 0.09
+    self_collision_d_min: 0.05
           
     manipulation_cube:
       ${EE_PREFIX}_right_${EE_SUFFIX}:      
