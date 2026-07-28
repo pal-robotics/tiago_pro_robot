@@ -97,6 +97,7 @@
   <xacro:arg name="is_multiple" default="false"/>
   <xacro:arg name="namespace" default=""/>
   <xacro:arg name="calibration_offset_dir" default="$(find tiago_pro_description)/urdf/calibration"/>
+  <xacro:arg name="geometric_calibration_dir" default="$(find tiago_pro_description)/urdf/calibration"/>
   <xacro:arg name="extrinsic_calibration_dir" default="$(find tiago_pro_description)/urdf"/>
   <xacro:arg name="arm_x" default="0.08976" />
   <xacro:arg name="arm_y" default="0.15918" />
@@ -136,6 +137,7 @@
   <xacro:property name="ft_sensor_teleop_right" value="$(arg ft_sensor_teleop_right)" />
   <xacro:property name="camera_model" value="$(arg camera_model)" />
   <xacro:property name="calibration_offset_dir" value="${arg calibration_offset_dir}"/>
+  <xacro:property name="geometric_calibration_dir" value="${arg geometric_calibration_dir}"/>
   <xacro:property name="is_public_sim" value="$(arg is_public_sim)" />
   <xacro:property name="calibration_tool" value="$(arg calibration_tool)"/>
 
@@ -263,6 +265,7 @@
 
   <!-- Calibration constants -->
   <xacro:include filename="$(arg calibration_offset_dir)/calibration_offset.urdf.xacro" />
+  <xacro:include filename="$(arg geometric_calibration_dir)/geometric_calibration.urdf.xacro" />
 
   <!-- Wrist camera -->
   <xacro:if value="${has_wrist_camera}">
@@ -325,7 +328,7 @@
 
     <!-- Arm -->
     <xacro:pal_sea_arm name="arm_left" parent="torso_lift_link" arm_type="${arm_type_left}" wrist_model="${wrist_model_left}" tool_changer="${tool_changer_left}" reflect="1" joint_reflect="-1" arm_1_offset="${arm_left_1_joint_offset}" arm_2_offset="${arm_left_2_joint_offset}" arm_3_offset="${arm_left_3_joint_offset}" arm_4_offset="${arm_left_4_joint_offset}" arm_5_offset="${arm_left_5_joint_offset}" arm_6_offset="${arm_left_6_joint_offset}" arm_7_offset="${arm_left_7_joint_offset}" limits_v2="${limits_v2}">
-      <origin xyz="$(arg arm_x) $(arg arm_y) $(arg arm_z)" rpy="$(arg arm_roll) $(arg arm_pitch) $(arg arm_yaw)"/>
+      <origin xyz="${$(arg arm_x)+arm_left_1_dx} ${$(arg arm_y)+arm_left_1_dy} ${$(arg arm_z)+arm_left_1_dz}" rpy="${$(arg arm_roll)+arm_left_1_droll} ${$(arg arm_pitch)+arm_left_1_dpitch} ${$(arg arm_yaw)+arm_left_1_dyaw}"/>
     </xacro:pal_sea_arm>
 
     <!-- End effector -->
@@ -349,7 +352,7 @@
 
     <!-- Arm -->
     <xacro:pal_sea_arm name="arm_right" parent="torso_lift_link" arm_type="${arm_type_right}" wrist_model="${wrist_model_right}" tool_changer="${tool_changer_right}" reflect="1" joint_reflect="1" arm_1_offset="${arm_right_1_joint_offset}" arm_2_offset="${arm_right_2_joint_offset}" arm_3_offset="${arm_right_3_joint_offset}" arm_4_offset="${arm_right_4_joint_offset}" arm_5_offset="${arm_right_5_joint_offset}" arm_6_offset="${arm_right_6_joint_offset}" arm_7_offset="${arm_right_7_joint_offset}" limits_v2="${limits_v2}">
-      <origin xyz="$(arg arm_x) ${-1.0*$(arg arm_y)} $(arg arm_z)" rpy="$(arg arm_roll) ${-1.0*$(arg arm_pitch)} ${-3.14159 -$(arg arm_yaw)}"/>
+      <origin xyz="${$(arg arm_x)+arm_right_1_dx} ${-1.0*$(arg arm_y)+arm_right_1_dy} ${$(arg arm_z)+arm_right_1_dz}" rpy="${$(arg arm_roll)+arm_right_1_droll} ${-1.0*$(arg arm_pitch)+arm_right_1_dpitch} ${-3.14159 -$(arg arm_yaw)+arm_right_1_dyaw}"/>
     </xacro:pal_sea_arm>
 
     <!-- End effector -->
