@@ -10,6 +10,16 @@
           usage: demo
           description: 'Go home'
 
+      boxing:
+        joints: [torso_lift_joint]
+        times_from_start: [5.0]
+        positions: [0.0]
+        meta:
+          name: boxing
+          usage: demo
+          description: 'Go boxing'
+
+
       torso_up:
         joints: [torso_lift_joint]
         positions: [0.33]

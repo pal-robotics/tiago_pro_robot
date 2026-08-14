@@ -251,7 +251,7 @@
         positions: [0.17202, 1.8557, -1.5919, 0.35538, -2.0502, 0.10524, -1.5976, 0.0, -1.8614, -1.6008, -0.34892, -1.9818, 0.10153, -1.5829, 0.0,
                     0.1761, 0.26, -1.6008, 0.3489, -1.9818, 0.0, -1.5829, 0.0, -0.26, -1.6008, -0.3489, -1.9818, -0.0, -1.5829, 0.0,
                     0.1, 0.36, -1.83, 0.47, -2.35, 0.0, -1.2, 0.0, -0.36, -1.83, -0.47, -2.35, -0.0, -1.2, 0.0,
-                    0.0, 0.29, -1.89, 0.48, -2.37, 0.2, -1.25, 1.71, -0.29, -1.89, -0.48, -2.37, -0.2, -1.25, 1.71]
+                    0.0, 0.46, -1.89, 0.3, -2.37, -0.2, -1.25, 1.52, -0.45, -1.89, -0.3, -2.37, 0.2, -1.25, 1.52]
         meta:
           name: Boxing
           usage: demo
@@ -347,7 +347,7 @@
           name: Explore Workspace
           usage: Demo
           description: explore workspace
-
+      
       pre_grasp_both:
         joints: [arm_right_1_joint, arm_right_2_joint, arm_right_3_joint, arm_right_4_joint, arm_right_5_joint, arm_right_6_joint, arm_right_7_joint, arm_left_1_joint, arm_left_2_joint, arm_left_3_joint, arm_left_4_joint, arm_left_5_joint, arm_left_6_joint, arm_left_7_joint, torso_lift_joint]
         positions: [-1.6394, -2.1917, -0.4627, -2.091, -0.0018092, -1.0516, 0.0060072, 1.6358, -2.2016, 0.47, -2.0984, -2.5894e-05, -1.0555, 0.0034879, 0.3, 
@@ -379,4 +379,3 @@
           name: Pre Grasp Right
           usage: ""
           description: " Moves the right arm to a pre grasp position"
-      
