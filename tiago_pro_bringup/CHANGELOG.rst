@@ -2,6 +2,11 @@
 Changelog for package tiago_pro_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* New boxing position
+* Contributors: Rafa Rojas
+
 2.5.0 (2026-07-21)
 ------------------
 * pre grasp motions
