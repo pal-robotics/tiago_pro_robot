@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<!--
+
+  Geometric calibration deltas (full_params, per-joint 6-DOF corrections).
+  Rendered from /etc/calibration/master_calibration.yaml via launch_pal.calibration_utils,
+  same mechanism as calibration_offset.urdf.xacro.j2. Each property defaults to 0.0 when
+  absent, so an uncalibrated robot is unaffected.
+
+  Consumed by:
+    - tiago_pro.urdf.xacro (arm_right_1 / arm_left_1 origin, applied post-mirror)
+    - arm.properties.xacro / spherical-wrist.properties.xacro (origin_joint_2..7 macros)
+    - pal_atc gripper.urdf.xacro (tool_mount_joint origin)
+
+-->
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+	<!-- arm_left -->
+	<xacro:property name="arm_left_1_dx" value="{{ arm_left_1_dx|default(0.0, true) }}" />
+	<xacro:property name="arm_left_1_dy" value="{{ arm_left_1_dy|default(0.0, true) }}" />
+	<xacro:property name="arm_left_1_dz" value="{{ arm_left_1_dz|default(0.0, true) }}" />
+	<xacro:property name="arm_left_1_droll" value="{{ arm_left_1_droll|default(0.0, true) }}" />
+	<xacro:property name="arm_left_1_dpitch" value="{{ arm_left_1_dpitch|default(0.0, true) }}" />
+	<xacro:property name="arm_left_1_dyaw" value="{{ arm_left_1_dyaw|default(0.0, true) }}" />
+
+	<xacro:property name="arm_left_2_dx" value="{{ arm_left_2_dx|default(0.0, true) }}" />
+	<xacro:property name="arm_left_2_dy" value="{{ arm_left_2_dy|default(0.0, true) }}" />
+	<xacro:property name="arm_left_2_dz" value="{{ arm_left_2_dz|default(0.0, true) }}" />
+	<xacro:property name="arm_left_2_droll" value="{{ arm_left_2_droll|default(0.0, true) }}" />
+	<xacro:property name="arm_left_2_dpitch" value="{{ arm_left_2_dpitch|default(0.0, true) }}" />
+	<xacro:property name="arm_left_2_dyaw" value="{{ arm_left_2_dyaw|default(0.0, true) }}" />
+
+	<xacro:property name="arm_left_3_dx" value="{{ arm_left_3_dx|default(0.0, true) }}" />
+	<xacro:property name="arm_left_3_dy" value="{{ arm_left_3_dy|default(0.0, true) }}" />
+	<xacro:property name="arm_left_3_dz" value="{{ arm_left_3_dz|default(0.0, true) }}" />
+	<xacro:property name="arm_left_3_droll" value="{{ arm_left_3_droll|default(0.0, true) }}" />
+	<xacro:property name="arm_left_3_dpitch" value="{{ arm_left_3_dpitch|default(0.0, true) }}" />
+	<xacro:property name="arm_left_3_dyaw" value="{{ arm_left_3_dyaw|default(0.0, true) }}" />
+
+	<xacro:property name="arm_left_4_dx" value="{{ arm_left_4_dx|default(0.0, true) }}" />
+	<xacro:property name="arm_left_4_dy" value="{{ arm_left_4_dy|default(0.0, true) }}" />
+	<xacro:property name="arm_left_4_dz" value="{{ arm_left_4_dz|default(0.0, true) }}" />
+	<xacro:property name="arm_left_4_droll" value="{{ arm_left_4_droll|default(0.0, true) }}" />
+	<xacro:property name="arm_left_4_dpitch" value="{{ arm_left_4_dpitch|default(0.0, true) }}" />
+	<xacro:property name="arm_left_4_dyaw" value="{{ arm_left_4_dyaw|default(0.0, true) }}" />
+
+	<xacro:property name="arm_left_5_dx" value="{{ arm_left_5_dx|default(0.0, true) }}" />
+	<xacro:property name="arm_left_5_dy" value="{{ arm_left_5_dy|default(0.0, true) }}" />
+	<xacro:property name="arm_left_5_dz" value="{{ arm_left_5_dz|default(0.0, true) }}" />
+	<xacro:property name="arm_left_5_droll" value="{{ arm_left_5_droll|default(0.0, true) }}" />
+	<xacro:property name="arm_left_5_dpitch" value="{{ arm_left_5_dpitch|default(0.0, true) }}" />
+	<xacro:property name="arm_left_5_dyaw" value="{{ arm_left_5_dyaw|default(0.0, true) }}" />
+
+	<xacro:property name="arm_left_6_dx" value="{{ arm_left_6_dx|default(0.0, true) }}" />
+	<xacro:property name="arm_left_6_dy" value="{{ arm_left_6_dy|default(0.0, true) }}" />
+	<xacro:property name="arm_left_6_dz" value="{{ arm_left_6_dz|default(0.0, true) }}" />
+	<xacro:property name="arm_left_6_droll" value="{{ arm_left_6_droll|default(0.0, true) }}" />
+	<xacro:property name="arm_left_6_dpitch" value="{{ arm_left_6_dpitch|default(0.0, true) }}" />
+	<xacro:property name="arm_left_6_dyaw" value="{{ arm_left_6_dyaw|default(0.0, true) }}" />
+
+	<xacro:property name="arm_left_7_dx" value="{{ arm_left_7_dx|default(0.0, true) }}" />
+	<xacro:property name="arm_left_7_dy" value="{{ arm_left_7_dy|default(0.0, true) }}" />
+	<xacro:property name="arm_left_7_dz" value="{{ arm_left_7_dz|default(0.0, true) }}" />
+	<xacro:property name="arm_left_7_droll" value="{{ arm_left_7_droll|default(0.0, true) }}" />
+	<xacro:property name="arm_left_7_dpitch" value="{{ arm_left_7_dpitch|default(0.0, true) }}" />
+	<xacro:property name="arm_left_7_dyaw" value="{{ arm_left_7_dyaw|default(0.0, true) }}" />
+
+	<!-- arm_right -->
+	<xacro:property name="arm_right_1_dx" value="{{ arm_right_1_dx|default(0.0, true) }}" />
+	<xacro:property name="arm_right_1_dy" value="{{ arm_right_1_dy|default(0.0, true) }}" />
+	<xacro:property name="arm_right_1_dz" value="{{ arm_right_1_dz|default(0.0, true) }}" />
+	<xacro:property name="arm_right_1_droll" value="{{ arm_right_1_droll|default(0.0, true) }}" />
+	<xacro:property name="arm_right_1_dpitch" value="{{ arm_right_1_dpitch|default(0.0, true) }}" />
+	<xacro:property name="arm_right_1_dyaw" value="{{ arm_right_1_dyaw|default(0.0, true) }}" />
+
+	<xacro:property name="arm_right_2_dx" value="{{ arm_right_2_dx|default(0.0, true) }}" />
+	<xacro:property name="arm_right_2_dy" value="{{ arm_right_2_dy|default(0.0, true) }}" />
+	<xacro:property name="arm_right_2_dz" value="{{ arm_right_2_dz|default(0.0, true) }}" />
+	<xacro:property name="arm_right_2_droll" value="{{ arm_right_2_droll|default(0.0, true) }}" />
+	<xacro:property name="arm_right_2_dpitch" value="{{ arm_right_2_dpitch|default(0.0, true) }}" />
+	<xacro:property name="arm_right_2_dyaw" value="{{ arm_right_2_dyaw|default(0.0, true) }}" />
+
+	<xacro:property name="arm_right_3_dx" value="{{ arm_right_3_dx|default(0.0, true) }}" />
+	<xacro:property name="arm_right_3_dy" value="{{ arm_right_3_dy|default(0.0, true) }}" />
+	<xacro:property name="arm_right_3_dz" value="{{ arm_right_3_dz|default(0.0, true) }}" />
+	<xacro:property name="arm_right_3_droll" value="{{ arm_right_3_droll|default(0.0, true) }}" />
+	<xacro:property name="arm_right_3_dpitch" value="{{ arm_right_3_dpitch|default(0.0, true) }}" />
+	<xacro:property name="arm_right_3_dyaw" value="{{ arm_right_3_dyaw|default(0.0, true) }}" />
+
+	<xacro:property name="arm_right_4_dx" value="{{ arm_right_4_dx|default(0.0, true) }}" />
+	<xacro:property name="arm_right_4_dy" value="{{ arm_right_4_dy|default(0.0, true) }}" />
+	<xacro:property name="arm_right_4_dz" value="{{ arm_right_4_dz|default(0.0, true) }}" />
+	<xacro:property name="arm_right_4_droll" value="{{ arm_right_4_droll|default(0.0, true) }}" />
+	<xacro:property name="arm_right_4_dpitch" value="{{ arm_right_4_dpitch|default(0.0, true) }}" />
+	<xacro:property name="arm_right_4_dyaw" value="{{ arm_right_4_dyaw|default(0.0, true) }}" />
+
+	<xacro:property name="arm_right_5_dx" value="{{ arm_right_5_dx|default(0.0, true) }}" />
+	<xacro:property name="arm_right_5_dy" value="{{ arm_right_5_dy|default(0.0, true) }}" />
+	<xacro:property name="arm_right_5_dz" value="{{ arm_right_5_dz|default(0.0, true) }}" />
+	<xacro:property name="arm_right_5_droll" value="{{ arm_right_5_droll|default(0.0, true) }}" />
+	<xacro:property name="arm_right_5_dpitch" value="{{ arm_right_5_dpitch|default(0.0, true) }}" />
+	<xacro:property name="arm_right_5_dyaw" value="{{ arm_right_5_dyaw|default(0.0, true) }}" />
+
+	<xacro:property name="arm_right_6_dx" value="{{ arm_right_6_dx|default(0.0, true) }}" />
+	<xacro:property name="arm_right_6_dy" value="{{ arm_right_6_dy|default(0.0, true) }}" />
+	<xacro:property name="arm_right_6_dz" value="{{ arm_right_6_dz|default(0.0, true) }}" />
+	<xacro:property name="arm_right_6_droll" value="{{ arm_right_6_droll|default(0.0, true) }}" />
+	<xacro:property name="arm_right_6_dpitch" value="{{ arm_right_6_dpitch|default(0.0, true) }}" />
+	<xacro:property name="arm_right_6_dyaw" value="{{ arm_right_6_dyaw|default(0.0, true) }}" />
+
+	<xacro:property name="arm_right_7_dx" value="{{ arm_right_7_dx|default(0.0, true) }}" />
+	<xacro:property name="arm_right_7_dy" value="{{ arm_right_7_dy|default(0.0, true) }}" />
+	<xacro:property name="arm_right_7_dz" value="{{ arm_right_7_dz|default(0.0, true) }}" />
+	<xacro:property name="arm_right_7_droll" value="{{ arm_right_7_droll|default(0.0, true) }}" />
+	<xacro:property name="arm_right_7_dpitch" value="{{ arm_right_7_dpitch|default(0.0, true) }}" />
+	<xacro:property name="arm_right_7_dyaw" value="{{ arm_right_7_dyaw|default(0.0, true) }}" />
+
+	<xacro:property name="gripper_left_tool_mount_dx" value="{{ gripper_left_tool_mount_dx|default(0.0, true) }}" />
+	<xacro:property name="gripper_left_tool_mount_dy" value="{{ gripper_left_tool_mount_dy|default(0.0, true) }}" />
+	<xacro:property name="gripper_left_tool_mount_dz" value="{{ gripper_left_tool_mount_dz|default(0.0, true) }}" />
+	<xacro:property name="gripper_left_tool_mount_droll" value="{{ gripper_left_tool_mount_droll|default(0.0, true) }}" />
+	<xacro:property name="gripper_left_tool_mount_dpitch" value="{{ gripper_left_tool_mount_dpitch|default(0.0, true) }}" />
+	<xacro:property name="gripper_left_tool_mount_dyaw" value="{{ gripper_left_tool_mount_dyaw|default(0.0, true) }}" />
+	<xacro:property name="gripper_right_tool_mount_dx" value="{{ gripper_right_tool_mount_dx|default(0.0, true) }}" />
+	<xacro:property name="gripper_right_tool_mount_dy" value="{{ gripper_right_tool_mount_dy|default(0.0, true) }}" />
+	<xacro:property name="gripper_right_tool_mount_dz" value="{{ gripper_right_tool_mount_dz|default(0.0, true) }}" />
+	<xacro:property name="gripper_right_tool_mount_droll" value="{{ gripper_right_tool_mount_droll|default(0.0, true) }}" />
+	<xacro:property name="gripper_right_tool_mount_dpitch" value="{{ gripper_right_tool_mount_dpitch|default(0.0, true) }}" />
+	<xacro:property name="gripper_right_tool_mount_dyaw" value="{{ gripper_right_tool_mount_dyaw|default(0.0, true) }}" />
+
+</robot>
