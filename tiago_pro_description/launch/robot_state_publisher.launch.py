@@ -120,6 +120,7 @@ def create_robot_description_param(context, *args, **kwargs):
         'has_wrist_camera': read_launch_argument('has_wrist_camera', context),
         'wheel_model': read_launch_argument('wheel_model', context),
         'gazebo_version': read_launch_argument('gazebo_version', context),
+        'with_sc': 'true',
     }
 
     calibration_dir = tempfile.TemporaryDirectory()
