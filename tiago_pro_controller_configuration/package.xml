@@ -29,7 +29,6 @@
   <exec_depend>ros2controlcli</exec_depend>
   <exec_depend condition="$PAL_DISTRO > 0">gravity_compensation_controller2</exec_depend>
   <exec_depend condition="$PAL_DISTRO > 0">tsid_controllers</exec_depend>
-  <exec_depend condition="$PAL_DISTRO > 0"> pal_impedance_control</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
