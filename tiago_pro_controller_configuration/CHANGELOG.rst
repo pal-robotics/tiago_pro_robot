@@ -2,6 +2,15 @@
 Changelog for package tiago_pro_controller_configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* change params values
+* add collision_exclusions file
+* adding ellipsoid file
+* update params
+* update for collison task in tsid
+* Contributors: silviamasiello
+
 2.5.1 (2026-08-17)
 ------------------
 
