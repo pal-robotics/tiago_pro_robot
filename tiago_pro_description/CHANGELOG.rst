@@ -2,6 +2,9 @@
 Changelog for package tiago_pro_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 2.5.2 (2026-10-28)
 ------------------
 * Remove deprecated expose_collision_interface
