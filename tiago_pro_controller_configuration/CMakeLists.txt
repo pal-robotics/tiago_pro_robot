@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.10)
 project(tiago_pro_controller_configuration)
 
 find_package(ament_cmake_auto REQUIRED)
