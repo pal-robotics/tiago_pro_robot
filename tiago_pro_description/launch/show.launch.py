@@ -13,19 +13,19 @@
 # limitations under the License.
 
 
-from launch import LaunchDescription
-from launch.substitutions import PathJoinSubstitution, LaunchConfiguration
+from dataclasses import dataclass
 
+from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+
+from launch_pal.arg_utils import LaunchArgumentsBase
+from launch_pal.include_utils import include_scoped_launch_py_description
+from launch_pal.robot_arguments import CommonArgs
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
-from launch_pal.include_utils import include_scoped_launch_py_description
-from launch_pal.arg_utils import LaunchArgumentsBase
-from launch_pal.robot_arguments import CommonArgs
 from tiago_pro_description.launch_arguments import TiagoProArgs
-
-from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
@@ -61,26 +61,26 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
         paths=['launch', 'robot_state_publisher.launch.py'],
         launch_arguments={'arm_type_right': launch_args.arm_type_right,
                           'arm_type_left': launch_args.arm_type_left,
-                          "end_effector_right": launch_args.end_effector_right,
-                          "end_effector_left": launch_args.end_effector_left,
-                          "ft_sensor_right": launch_args.ft_sensor_right,
-                          "ft_sensor_left": launch_args.ft_sensor_left,
-                          "ft_sensor_teleop_right": launch_args.ft_sensor_teleop_right,
-                          "ft_sensor_teleop_left": launch_args.ft_sensor_teleop_left,
-                          "wrist_model_right": launch_args.wrist_model_right,
-                          "wrist_model_left": launch_args.wrist_model_left,
-                          "laser_model": launch_args.laser_model,
-                          "camera_model": launch_args.camera_model,
-                          "base_type": launch_args.base_type,
+                          'end_effector_right': launch_args.end_effector_right,
+                          'end_effector_left': launch_args.end_effector_left,
+                          'ft_sensor_right': launch_args.ft_sensor_right,
+                          'ft_sensor_left': launch_args.ft_sensor_left,
+                          'ft_sensor_teleop_right': launch_args.ft_sensor_teleop_right,
+                          'ft_sensor_teleop_left': launch_args.ft_sensor_teleop_left,
+                          'wrist_model_right': launch_args.wrist_model_right,
+                          'wrist_model_left': launch_args.wrist_model_left,
+                          'laser_model': launch_args.laser_model,
+                          'camera_model': launch_args.camera_model,
+                          'base_type': launch_args.base_type,
                           'tool_changer_right': launch_args.tool_changer_right,
                           'tool_changer_left': launch_args.tool_changer_left,
                           'torque_estimation': launch_args.torque_estimation,
                           'calibration_tool': launch_args.calibration_tool,
                           'limits_v2': launch_args.limits_v2,
-                          "namespace": launch_args.namespace,
-                          "use_sim_time": launch_args.use_sim_time,
-                          "has_teleop_arms": launch_args.has_teleop_arms,
-                          "has_wrist_camera": launch_args.has_wrist_camera
+                          'namespace': launch_args.namespace,
+                          'use_sim_time': launch_args.use_sim_time,
+                          'has_teleop_arms': launch_args.has_teleop_arms,
+                          'has_wrist_camera': launch_args.has_wrist_camera
                           })
 
     launch_description.add_action(robot_state_publisher)

@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import dataclass
 import os
 from pathlib import Path
 import tempfile
@@ -20,18 +21,16 @@ import tempfile
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.substitutions import LaunchConfiguration
 from launch.actions import DeclareLaunchArgument, OpaqueFunction, SetLaunchConfiguration
-from launch_ros.actions import Node
-from launch_ros.parameter_descriptions import ParameterValue
-from launch_param_builder import load_xacro
-
+from launch.substitutions import LaunchConfiguration
+from launch_pal import calibration_utils
 from launch_pal.arg_utils import LaunchArgumentsBase, read_launch_argument
 from launch_pal.robot_arguments import CommonArgs
-from launch_pal import calibration_utils
-from tiago_pro_description.launch_arguments import TiagoProArgs
+from launch_param_builder import load_xacro
+from launch_ros.actions import Node
+from launch_ros.parameter_descriptions import ParameterValue
 
-from dataclasses import dataclass
+from tiago_pro_description.launch_arguments import TiagoProArgs
 
 
 @dataclass(frozen=True)
@@ -76,8 +75,8 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
                parameters=[
                    {
                        'use_sim_time': LaunchConfiguration('use_sim_time'),
-                       "robot_description": ParameterValue(
-                           LaunchConfiguration("robot_description"), value_type=str
+                       'robot_description': ParameterValue(
+                           LaunchConfiguration('robot_description'), value_type=str
                        ),
                    }
                ],
@@ -126,7 +125,7 @@ def create_robot_description_param(context, *args, **kwargs):
     calibration_dir_path = Path(calibration_dir.name)
 
     input_dir = Path(get_package_share_directory(
-        "tiago_pro_description")) / "urdf" / "calibration"
+        'tiago_pro_description')) / 'urdf' / 'calibration'
 
     calibration_xacro_args = calibration_utils.apply_urdf_calibration(
         input_dir, calibration_dir_path)

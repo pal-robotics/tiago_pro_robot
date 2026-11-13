@@ -12,18 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import dataclass
 import os
+
+from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
-from ament_index_python.packages import get_package_share_directory
 
-from launch_pal.include_utils import include_scoped_launch_py_description
 from launch_pal.arg_utils import LaunchArgumentsBase
+from launch_pal.include_utils import include_scoped_launch_py_description
 from launch_pal.robot_arguments import CommonArgs
 
 from launch_ros.actions import Node
-
-from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
