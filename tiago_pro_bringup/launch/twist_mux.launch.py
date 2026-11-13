@@ -42,10 +42,19 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
     joystick_file = os.path.join(
         pkg_dir, 'config', 'twist_mux', 'joystick.yaml')
 
+    if os.environ.get('ROS_DISTRO') == 'humble':
+        # Alum uses an overlaid twist_mux that can publish unstamped Twists
+        # depending on launch arguments.
+        cmd_vel_out = 'mobile_base_controller/cmd_vel_unstamped'
+    else:
+        # In cadmium and later, twist_mux publishes TwistStamped,
+        # which mobile_base_controller can subscribe to directly.
+        cmd_vel_out = 'mobile_base_controller/cmd_vel'
+
     twist_mux = include_scoped_launch_py_description(
         pkg_name='twist_mux', paths=['launch', 'twist_mux_launch.py'],
         launch_arguments={
-            'cmd_vel_out': 'mobile_base_controller/cmd_vel_unstamped',
+            'cmd_vel_out': cmd_vel_out,
             'config_locks': config_locks_file,
             'config_topics': config_topics_file,
             'config_joy': joystick_file,
