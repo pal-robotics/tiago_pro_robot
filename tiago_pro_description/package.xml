@@ -21,7 +21,7 @@
   <exec_depend condition="$PAL_DISTRO >= alum">allegro_hand_description</exec_depend>
   <exec_depend>pal_urdf_utils</exec_depend>
   <exec_depend>xacro</exec_depend>
-  <exec_depend condition="$PAL_DISTRO >= alum">hector_gazebo_plugins</exec_depend>
+  <exec_depend condition="$PAL_DISTRO == alum">hector_gazebo_plugins</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
