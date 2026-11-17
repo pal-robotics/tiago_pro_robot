@@ -2,6 +2,11 @@
 Changelog for package tiago_pro_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add MuJoCo simulation support
+* Contributors: Ortisa Poci
+
 2.5.4 (2026-11-17)
 ------------------
 * Only enable hector_gazebo_plugins for alum/humble

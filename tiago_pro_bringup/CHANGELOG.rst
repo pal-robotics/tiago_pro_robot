@@ -2,6 +2,11 @@
 Changelog for package tiago_pro_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add MuJoCo simulation support
+* Contributors: Ortisa Poci
+
 2.5.4 (2026-11-17)
 ------------------
 * Fix twist_mux topics
