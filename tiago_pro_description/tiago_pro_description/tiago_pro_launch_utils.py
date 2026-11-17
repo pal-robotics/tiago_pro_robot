@@ -14,14 +14,14 @@
 
 
 def get_tiago_pro_hw_suffix(
-    arm_right: str = "no-arm",
-    arm_left: str = "no-arm",
-    end_effector_right: str = "no-end-effector",
-    end_effector_left: str = "no-end-effector",
-    ft_sensor_right: str = "no-ft-sensor",
-    ft_sensor_left: str = "no-ft-sensor",
-    ft_sensor_teleop_right: str = "no-ft-sensor",
-    ft_sensor_teleop_left: str = "no-ft-sensor",
+    arm_right: str = 'no-arm',
+    arm_left: str = 'no-arm',
+    end_effector_right: str = 'no-end-effector',
+    end_effector_left: str = 'no-end-effector',
+    ft_sensor_right: str = 'no-ft-sensor',
+    ft_sensor_left: str = 'no-ft-sensor',
+    ft_sensor_teleop_right: str = 'no-ft-sensor',
+    ft_sensor_teleop_left: str = 'no-ft-sensor',
     has_teleop_arms: bool = False,
 ):
     """

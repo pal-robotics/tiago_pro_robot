@@ -12,19 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import dataclass
 import os
+
 from ament_index_python.packages import get_package_share_directory
-from launch import LaunchDescription
-from launch.actions import GroupAction, OpaqueFunction
-from launch.actions import DeclareLaunchArgument
-from launch.conditions import LaunchConfigurationNotEquals
 from controller_manager.launch_utils import generate_load_controller_launch_description
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument
+from launch.actions import GroupAction, OpaqueFunction
+from launch.conditions import LaunchConfigurationNotEquals
 from launch_pal.arg_utils import LaunchArgumentsBase
 from launch_pal.param_utils import parse_parametric_yaml
 from launch_pal.robot_arguments import CommonArgs
 from tiago_pro_description.launch_arguments import TiagoProArgs
-
-from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
@@ -41,15 +41,15 @@ def declare_actions(
 
     right_arm_controller = OpaqueFunction(
         function=setup_arm_controllers,
-        kwargs={"arm_side": "right"},
-        condition=LaunchConfigurationNotEquals("arm_type_right", "no-arm"),
+        kwargs={'arm_side': 'right'},
+        condition=LaunchConfigurationNotEquals('arm_type_right', 'no-arm'),
     )
     launch_description.add_action(right_arm_controller)
 
     left_arm_controller = OpaqueFunction(
         function=setup_arm_controllers,
-        kwargs={"arm_side": "left"},
-        condition=LaunchConfigurationNotEquals("arm_type_left", "no-arm"),
+        kwargs={'arm_side': 'left'},
+        condition=LaunchConfigurationNotEquals('arm_type_left', 'no-arm'),
     )
     launch_description.add_action(left_arm_controller)
 
@@ -59,7 +59,7 @@ def declare_actions(
 def setup_arm_controllers(context, arm_side, *args, **kwargs):
 
     forward_controller_vel = setup_arm_side_controller(
-        context, "forward_controller_vel", arm_side,
+        context, 'forward_controller_vel', arm_side,
     )
 
     return [
@@ -68,18 +68,18 @@ def setup_arm_controllers(context, arm_side, *args, **kwargs):
 
 
 def setup_arm_side_controller(
-    context, controller_name, arm_side="right",
+    context, controller_name, arm_side='right',
 ):
 
-    arm_prefix = f"arm_{arm_side}"
+    arm_prefix = f'arm_{arm_side}'
 
-    side_controller_name = f"{arm_prefix}_{controller_name}"
-    remappings = {"ARM_SIDE_PREFIX": arm_prefix}
+    side_controller_name = f'{arm_prefix}_{controller_name}'
+    remappings = {'ARM_SIDE_PREFIX': arm_prefix}
 
     param_file = os.path.join(
-        get_package_share_directory("tiago_pro_controller_configuration"),
-        "config",
-        f"{controller_name}.yaml",
+        get_package_share_directory('tiago_pro_controller_configuration'),
+        'config',
+        f'{controller_name}.yaml',
     )
 
     parsed_yaml = parse_parametric_yaml(
@@ -91,7 +91,7 @@ def setup_arm_side_controller(
             generate_load_controller_launch_description(
                 controller_name=side_controller_name,
                 controller_params_file=parsed_yaml,
-                extra_spawner_args=["--inactive"],
+                extra_spawner_args=['--inactive'],
             )
         ],
         forwarding=False,

@@ -12,21 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ament_index_python.packages import get_package_share_directory
-from rclpy.logging import get_logger
-from launch import LaunchDescription
-from launch.substitutions import PathJoinSubstitution, LaunchConfiguration
-from launch.actions import DeclareLaunchArgument, SetLaunchConfiguration, OpaqueFunction
+from dataclasses import dataclass
+import os
 
-from launch_pal.include_utils import include_scoped_launch_py_description
+from ament_index_python.packages import get_package_share_directory
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument, OpaqueFunction, SetLaunchConfiguration
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_pal.arg_utils import LaunchArgumentsBase, read_launch_argument
+from launch_pal.include_utils import include_scoped_launch_py_description
+from launch_pal.param_utils import merge_param_files
 from launch_pal.robot_arguments import CommonArgs
+from rclpy.logging import get_logger
+
 
 from tiago_pro_description.launch_arguments import TiagoProArgs
 from tiago_pro_description.tiago_pro_launch_utils import get_tiago_pro_hw_suffix
-from dataclasses import dataclass
-from launch_pal.param_utils import merge_param_files
-import os
 
 
 @dataclass(frozen=True)
@@ -46,8 +47,8 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
         pkg_name='play_motion2',
         paths=['launch', 'play_motion2.launch.py'],
         launch_arguments={
-            "use_sim_time":  launch_args.use_sim_time,
-            "motions_file": LaunchConfiguration('motions_file'),
+            'use_sim_time':  launch_args.use_sim_time,
+            'motions_file': LaunchConfiguration('motions_file'),
             'motion_planner_config': LaunchConfiguration('motion_planner_config')
         })
 
@@ -83,12 +84,12 @@ def create_play_motion_filename(context):
     base_motions_file = 'tiago_pro_motions_no_arms.yaml'
 
     if 'short-wrist' in (wrist_model_right, wrist_model_left):
-        get_logger("play_motion2").warning(
+        get_logger('play_motion2').warning(
             "The 'short-wrist' model is not supported for play_motion2. "
-            "Loaded motions will not include arm movements.")
+            'Loaded motions will not include arm movements.')
     elif wrist_model_right != wrist_model_left:
-        get_logger("play_motion2").error(
-            "Wrist models must be the same for both arms")
+        get_logger('play_motion2').error(
+            'Wrist models must be the same for both arms')
     # both arms
     elif arm_right != 'no-arm' and arm_left != 'no-arm':
         base_motions_file = 'tiago_pro_motions_general_'+wrist_model_right+'.yaml'
@@ -100,9 +101,9 @@ def create_play_motion_filename(context):
         base_motions_file = 'tiago_pro_motions_general_arm_left.yaml'
 
     if ee_left != 'no-end-effector' and arm_left != 'no-arm':
-        ee_motions.append(f"tiago_pro_motions_{ee_left}_left.yaml")
+        ee_motions.append(f'tiago_pro_motions_{ee_left}_left.yaml')
     if ee_right != 'no-end-effector' and arm_right != 'no-arm':
-        ee_motions.append(f"tiago_pro_motions_{ee_right}_right.yaml")
+        ee_motions.append(f'tiago_pro_motions_{ee_right}_right.yaml')
     if has_teleop_arms:
         ee_motions.append('tiago_pro_motions_teleop_arms.yaml')
 
@@ -120,21 +121,21 @@ def create_play_motion_filename(context):
     # Safety check for not throwing error if some file does not exist
     for f in motion_yamls.copy():
         if not os.path.exists(f):
-            get_logger("play_motion2").warning(f"Motion file '{f}' does not exist. Skipping...")
+            get_logger('play_motion2').warning(f"Motion file '{f}' does not exist. Skipping...")
             motion_yamls.remove(f)
 
     combined_yaml = merge_param_files(motion_yamls)
-    motion_planner_file = f"motion_planner{hw_suffix}.yaml"
+    motion_planner_file = f'motion_planner{hw_suffix}.yaml'
 
-    if has_teleop_arms == "True":
-        motion_planner_file = f"motion_planner{hw_suffix}_teleop-arms.yaml"
+    if has_teleop_arms == 'True':
+        motion_planner_file = f'motion_planner{hw_suffix}_teleop-arms.yaml'
 
     motion_planner_config = PathJoinSubstitution([
         pkg_share_dir,
         'config', 'motion_planner', motion_planner_file])
 
-    return [SetLaunchConfiguration("motions_file", combined_yaml),
-            SetLaunchConfiguration("motion_planner_config", motion_planner_config)]
+    return [SetLaunchConfiguration('motions_file', combined_yaml),
+            SetLaunchConfiguration('motion_planner_config', motion_planner_config)]
 
 
 def generate_launch_description():

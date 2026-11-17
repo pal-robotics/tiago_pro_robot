@@ -12,21 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import dataclass
 import os
 from typing import List
+
 from ament_index_python.packages import get_package_share_directory
-from launch import LaunchDescription
-from launch.actions import GroupAction
-from launch.conditions import LaunchConfigurationNotEquals, IfCondition, UnlessCondition
-from launch.substitutions import LaunchConfiguration, PythonExpression
-from launch.actions import DeclareLaunchArgument, OpaqueFunction
 from controller_manager.launch_utils import generate_load_controller_launch_description
-from launch_pal.include_utils import include_scoped_launch_py_description
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument, OpaqueFunction
+from launch.actions import GroupAction
+from launch.conditions import IfCondition, LaunchConfigurationNotEquals, UnlessCondition
+from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch_pal.arg_utils import LaunchArgumentsBase, read_launch_argument
+from launch_pal.include_utils import include_scoped_launch_py_description
 from launch_pal.robot_arguments import CommonArgs
 from tiago_pro_description.launch_arguments import TiagoProArgs
-
-from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
@@ -78,10 +78,10 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
         forwarding=False,
         condition=IfCondition(
             PythonExpression([
-                "(", LaunchConfiguration("torque_estimation"), ") and (('",
+                '(', LaunchConfiguration('torque_estimation'), ") and (('",
                 LaunchConfiguration(
-                    "wrist_model_right"), "' != 'short-wrist') or ('",
-                LaunchConfiguration("wrist_model_left"), "' != 'short-wrist'))"
+                    'wrist_model_right'), "' != 'short-wrist') or ('",
+                LaunchConfiguration('wrist_model_left'), "' != 'short-wrist'))"
             ])
         )
     )
@@ -100,8 +100,8 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
 
     # Head controller
     head_controller = include_scoped_launch_py_description(
-        pkg_name="tiago_pro_head_controller_configuration",
-        paths=["launch", "head_controller.launch.py"])
+        pkg_name='tiago_pro_head_controller_configuration',
+        paths=['launch', 'head_controller.launch.py'])
     launch_description.add_action(head_controller)
 
     # Add controller of right arm, end-effector and ft-sensor
@@ -116,11 +116,11 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
 
     launch_description.add_action(OpaqueFunction(
         function=configure_side_controllers, args=['teleop_right'],
-        condition=IfCondition(LaunchConfiguration("has_teleop_arms"))))
+        condition=IfCondition(LaunchConfiguration('has_teleop_arms'))))
 
     launch_description.add_action(OpaqueFunction(
         function=configure_side_controllers, args=['teleop_left'],
-        condition=IfCondition(LaunchConfiguration("has_teleop_arms"))))
+        condition=IfCondition(LaunchConfiguration('has_teleop_arms'))))
 
     return
 
@@ -131,11 +131,11 @@ def configure_side_controllers(context, end_effector_side='right', *args, **kwar
     if is_teleop:
         wrist_model = read_launch_argument(
             f'wrist_model_{end_effector_side.replace("teleop_", "")}', context)
-        root_link_str = "pilot_station_base_link"
+        root_link_str = 'pilot_station_base_link'
     else:
         wrist_model = read_launch_argument(
             f'wrist_model_{end_effector_side}', context)
-        root_link_str = "torso_lift_link"
+        root_link_str = 'torso_lift_link'
 
     end_effector_arg_name = concatenate_strings(
         strings=['end_effector', end_effector_side.replace('teleop_', '')],
@@ -151,14 +151,14 @@ def configure_side_controllers(context, end_effector_side='right', *args, **kwar
         pkg_name='pal_sea_arm_controller_configuration',
         paths=['launch', 'arm_controller.launch.py'],
         launch_arguments={
-            "side": end_effector_side,
-            "wrist_model": wrist_model,
+            'side': end_effector_side,
+            'wrist_model': wrist_model,
         })
 
     sea_state_broadcaster_controller = include_scoped_launch_py_description(
         pkg_name='pal_sea_arm_controller_configuration',
         paths=['launch', 'sea_state_broadcaster_controller.launch.py'],
-        launch_arguments={"side": end_effector_side},
+        launch_arguments={'side': end_effector_side},
         condition=IfCondition(
             PythonExpression(
                 ["'", LaunchConfiguration('use_sim_time'), "' == 'False' and '",
@@ -171,38 +171,38 @@ def configure_side_controllers(context, end_effector_side='right', *args, **kwar
     gravity_compensation_controller_effort = include_scoped_launch_py_description(
         pkg_name='pal_sea_arm_controller_configuration',
         paths=['launch', 'gravity_compensation_controller.launch.py'],
-        launch_arguments={"side": end_effector_side,
-                          "root_link": root_link_str,
-                          "wrist_model": wrist_model},
-        condition=UnlessCondition(LaunchConfiguration("is_public_sim")))
+        launch_arguments={'side': end_effector_side,
+                          'root_link': root_link_str,
+                          'wrist_model': wrist_model},
+        condition=UnlessCondition(LaunchConfiguration('is_public_sim')))
 
     gravity_compensation_controller_torque = include_scoped_launch_py_description(
         pkg_name='pal_sea_arm_controller_configuration',
         paths=['launch', 'gravity_compensation_controller.launch.py'],
-        launch_arguments={"side": end_effector_side,
-                          "mode": "torque",
-                          "root_link": root_link_str},
+        launch_arguments={'side': end_effector_side,
+                          'mode': 'torque',
+                          'root_link': root_link_str},
         condition=IfCondition(
             PythonExpression([
-                "(",
-                LaunchConfiguration("torque_estimation"),
-                ") and not ((",
-                LaunchConfiguration("is_public_sim"),
-                ") or (",
+                '(',
+                LaunchConfiguration('torque_estimation'),
+                ') and not ((',
+                LaunchConfiguration('is_public_sim'),
+                ') or (',
                 "'", wrist_model, "' == 'short-wrist'",
-                "))"
+                '))'
             ])
         ))
 
-    use_sim_time = read_launch_argument("use_sim_time", context)
+    use_sim_time = read_launch_argument('use_sim_time', context)
 
     inertia_shaping_controllers = include_scoped_launch_py_description(
         pkg_name='pal_sea_arm_controller_configuration',
         paths=['launch', 'inertia_shaping_controllers.launch.py'],
-        launch_arguments={"side": end_effector_side},
+        launch_arguments={'side': end_effector_side},
         condition=IfCondition(
             PythonExpression([
-                "(", LaunchConfiguration("torque_estimation"), ") and not ('",
+                '(', LaunchConfiguration('torque_estimation'), ") and not ('",
                 wrist_model, "' == 'short-wrist')"])
         ))
 
@@ -218,7 +218,7 @@ def configure_side_controllers(context, end_effector_side='right', *args, **kwar
     end_effector_controller = include_scoped_launch_py_description(
         pkg_name=ee_pkg_name,
         paths=['launch', ee_launch_file],
-        launch_arguments={"side": end_effector_side},
+        launch_arguments={'side': end_effector_side},
         condition=LaunchConfigurationNotEquals(
             end_effector_arg_name, 'no-end-effector')
     )
@@ -231,8 +231,8 @@ def configure_side_controllers(context, end_effector_side='right', *args, **kwar
     ft_sensor_controller = include_scoped_launch_py_description(
         pkg_name=ft_pkg_name,
         paths=['launch', ft_launch_file],
-        launch_arguments={"side": end_effector_side,
-                          "ft_sensor": ft_sensor},
+        launch_arguments={'side': end_effector_side,
+                          'ft_sensor': ft_sensor},
         condition=LaunchConfigurationNotEquals(
             ft_sensor_arg_name, 'no-ft-sensor')
 
@@ -259,18 +259,18 @@ def concatenate_strings(strings: List[str], delimiter: str = '', skip_empty: boo
 
 def launch_mobile_base_controller(context, *args, **kwargs):
 
-    base_type = read_launch_argument("base_type", context)
-    use_sim_time = read_launch_argument("use_sim_time", context)
-    is_public_sim = read_launch_argument("is_public_sim", context)
+    base_type = read_launch_argument('base_type', context)
+    use_sim_time = read_launch_argument('use_sim_time', context)
+    is_public_sim = read_launch_argument('is_public_sim', context)
 
-    base_controller_package = base_type + "_controller_configuration"
+    base_controller_package = base_type + '_controller_configuration'
 
     mobile_base_controller = include_scoped_launch_py_description(
         pkg_name=base_controller_package,
-        paths=["launch", "mobile_base_controller.launch.py"],
+        paths=['launch', 'mobile_base_controller.launch.py'],
         launch_arguments={
-            "use_sim_time": use_sim_time,
-            "is_public_sim": is_public_sim,
+            'use_sim_time': use_sim_time,
+            'is_public_sim': is_public_sim,
         }
     )
 

@@ -12,17 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import dataclass
 import os
+
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
-from launch_ros.actions import Node
 from launch.conditions import LaunchConfigurationNotEquals
 from launch_pal.arg_utils import LaunchArgumentsBase
+from launch_ros.actions import Node
 from tiago_pro_description.launch_arguments import TiagoProArgs
-
-from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
@@ -44,8 +44,8 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
     # PAL helper function to fetch the configuration for this package,
     # which might be installed also from other packages
     joy_teleop_config = get_pal_configuration(
-        pkg="joy_teleop",
-        node="joy_teleop",
+        pkg='joy_teleop',
+        node='joy_teleop',
         ld=launch_description)
 
     joy_teleop_node = Node(
@@ -57,8 +57,8 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
     launch_description.add_action(joy_teleop_node)
 
     joy_config = get_pal_configuration(
-        pkg="joystick",
-        node="joystick",
+        pkg='joystick',
+        node='joystick',
         ld=launch_description)
 
     joy_node = Node(

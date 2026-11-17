@@ -12,36 +12,37 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import dataclass
 import os
+
 from ament_index_python.packages import get_package_share_directory
-from launch import LaunchDescription
-from launch.actions import GroupAction, OpaqueFunction
-from launch.actions import DeclareLaunchArgument
-from launch.conditions import LaunchConfigurationNotEquals
 from controller_manager.launch_utils import generate_load_controller_launch_description
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument
+from launch.actions import GroupAction, OpaqueFunction
+from launch.conditions import LaunchConfigurationNotEquals
 from launch_pal.arg_utils import LaunchArgumentsBase, read_launch_argument
-from launch_pal.param_utils import parse_parametric_yaml, merge_param_files
+from launch_pal.param_utils import merge_param_files, parse_parametric_yaml
 from launch_pal.robot_arguments import CommonArgs
 from tiago_pro_description.launch_arguments import TiagoProArgs
 
-from dataclasses import dataclass
 
 # Explicit list of all spawnable controllers for validation and documentation
 AVAILABLE_CONTROLLERS = [
-    "torso_joint_space_controller",
-    "torso_joint_space_vel_controller",
-    "arm_right_cartesian_vel_controller_ee_frame",
-    "arm_right_cartesian_vel_controller_robot_frame",
-    "arm_right_joint_space_controller_vel",
-    "arm_right_joint_space_controller",
-    "arm_right_cartesian_space_controller_ee_frame",
-    "arm_right_cartesian_space_controller_robot_frame",
-    "arm_left_cartesian_vel_controller_ee_frame",
-    "arm_left_cartesian_vel_controller_robot_frame",
-    "arm_left_joint_space_controller_vel",
-    "arm_left_joint_space_controller",
-    "arm_left_cartesian_space_controller_ee_frame",
-    "arm_left_cartesian_space_controller_robot_frame",
+    'torso_joint_space_controller',
+    'torso_joint_space_vel_controller',
+    'arm_right_cartesian_vel_controller_ee_frame',
+    'arm_right_cartesian_vel_controller_robot_frame',
+    'arm_right_joint_space_controller_vel',
+    'arm_right_joint_space_controller',
+    'arm_right_cartesian_space_controller_ee_frame',
+    'arm_right_cartesian_space_controller_robot_frame',
+    'arm_left_cartesian_vel_controller_ee_frame',
+    'arm_left_cartesian_vel_controller_robot_frame',
+    'arm_left_joint_space_controller_vel',
+    'arm_left_joint_space_controller',
+    'arm_left_cartesian_space_controller_ee_frame',
+    'arm_left_cartesian_space_controller_robot_frame',
 ]
 
 
@@ -52,18 +53,18 @@ class LaunchArguments(LaunchArgumentsBase):
     use_sim_time: DeclareLaunchArgument = CommonArgs.use_sim_time
     namespace: DeclareLaunchArgument = CommonArgs.namespace
     use_grasping_frame: DeclareLaunchArgument = DeclareLaunchArgument(
-        name="use_grasping_frame",
-        default_value="True",
-        choices=["True", "False"],
-        description="If true the cartesian controller is going to move the grasping frame.",
+        name='use_grasping_frame',
+        default_value='True',
+        choices=['True', 'False'],
+        description='If true the cartesian controller is going to move the grasping frame.',
     )
 
     controllers_to_spawn: DeclareLaunchArgument = DeclareLaunchArgument(
-        "controllers_to_spawn",
-        default_value="",
+        'controllers_to_spawn',
+        default_value='',
         description=(
-            "Comma-separated list of controllers to launch. "
-            "If empty, all default controllers are launched. "
+            'Comma-separated list of controllers to launch. '
+            'If empty, all default controllers are launched. '
             f"Valid options are: {', '.join(AVAILABLE_CONTROLLERS)}"
         )
     )
@@ -79,15 +80,15 @@ def declare_actions(
     # Setup the controllers
     right_arm_controller = OpaqueFunction(
         function=setup_arm_controllers,
-        kwargs={"arm_side": "right"},
-        condition=LaunchConfigurationNotEquals("arm_type_right", "no-arm"),
+        kwargs={'arm_side': 'right'},
+        condition=LaunchConfigurationNotEquals('arm_type_right', 'no-arm'),
     )
     launch_description.add_action(right_arm_controller)
 
     left_arm_controller = OpaqueFunction(
         function=setup_arm_controllers,
-        kwargs={"arm_side": "left"},
-        condition=LaunchConfigurationNotEquals("arm_type_left", "no-arm"),
+        kwargs={'arm_side': 'left'},
+        condition=LaunchConfigurationNotEquals('arm_type_left', 'no-arm'),
     )
     launch_description.add_action(left_arm_controller)
 
@@ -98,13 +99,13 @@ def declare_actions(
 
 
 def validate_controllers(context, *args, **kwargs):
-    target_controllers_str = read_launch_argument("controllers_to_spawn", context)
+    target_controllers_str = read_launch_argument('controllers_to_spawn', context)
 
     # If empty, spawn every controller
     if not target_controllers_str:
         return []
 
-    target_controllers = [c.strip() for c in target_controllers_str.split(",") if c.strip()]
+    target_controllers = [c.strip() for c in target_controllers_str.split(',') if c.strip()]
 
     # Find any controllers provided by the user that aren't in the allowed list
     invalid_controllers = [c for c in target_controllers if c not in AVAILABLE_CONTROLLERS]
@@ -112,21 +113,21 @@ def validate_controllers(context, *args, **kwargs):
     if invalid_controllers:
         raise ValueError(
             "\n\n[ERROR] Invalid controller name(s) provided in 'controllers_to_spawn': "
-            f"{invalid_controllers}.\n"
-            f"Please ensure you spelled them correctly.\n"
-            f"Valid options are:\n- " + "\n- ".join(AVAILABLE_CONTROLLERS) + "\n"
+            f'{invalid_controllers}.\n'
+            f'Please ensure you spelled them correctly.\n'
+            f'Valid options are:\n- ' + '\n- '.join(AVAILABLE_CONTROLLERS) + '\n'
         )
 
     return []
 
 
 def setup_torso_controllers(context, *args, **kwargs):
-    target_controllers_str = read_launch_argument("controllers_to_spawn", context)
-    target_controllers = [c.strip() for c in target_controllers_str.split(",") if c.strip()]
+    target_controllers_str = read_launch_argument('controllers_to_spawn', context)
+    target_controllers = [c.strip() for c in target_controllers_str.split(',') if c.strip()]
 
     available_controllers = [
-        "torso_joint_space_controller",
-        "torso_joint_space_vel_controller"
+        'torso_joint_space_controller',
+        'torso_joint_space_vel_controller'
     ]
 
     controllers_to_start = []
@@ -145,24 +146,24 @@ def setup_torso_controller(
         controller_name,
         load_gains_separately=False):
     param_file = os.path.join(
-        get_package_share_directory("tiago_pro_controller_configuration"),
-        "config",
-        "tsid",
-        f"{controller_name}.yaml",
+        get_package_share_directory('tiago_pro_controller_configuration'),
+        'config',
+        'tsid',
+        f'{controller_name}.yaml',
     )
     parsed_yaml = parse_parametric_yaml(
         source_files=[param_file], param_rewrites={})
 
-    use_sim_time = read_launch_argument("use_sim_time", context)
+    use_sim_time = read_launch_argument('use_sim_time', context)
     if load_gains_separately:
-        sim_postfix = "_sim" if use_sim_time == "True" else ""
+        sim_postfix = '_sim' if use_sim_time == 'True' else ''
 
         gains_file = os.path.join(
-            get_package_share_directory("tiago_pro_controller_configuration"),
-            "config",
-            "tsid",
-            "gains",
-            f"{controller_name}{sim_postfix}.yaml",
+            get_package_share_directory('tiago_pro_controller_configuration'),
+            'config',
+            'tsid',
+            'gains',
+            f'{controller_name}{sim_postfix}.yaml',
         )
 
         parsed_gains = parse_parametric_yaml(
@@ -176,7 +177,7 @@ def setup_torso_controller(
             generate_load_controller_launch_description(
                 controller_name=controller_name,
                 controller_params_file=parsed_yaml,
-                extra_spawner_args=["--inactive"],
+                extra_spawner_args=['--inactive'],
             )
         ],
         forwarding=False,
@@ -186,22 +187,22 @@ def setup_torso_controller(
 
 
 def setup_arm_controllers(context, arm_side, *args, **kwargs):
-    target_controllers_str = read_launch_argument("controllers_to_spawn", context)
-    target_controllers = [c.strip() for c in target_controllers_str.split(",") if c.strip()]
+    target_controllers_str = read_launch_argument('controllers_to_spawn', context)
+    target_controllers = [c.strip() for c in target_controllers_str.split(',') if c.strip()]
 
     available_base_controllers = [
-        "cartesian_vel_controller_ee_frame",
-        "cartesian_vel_controller_robot_frame",
-        "joint_space_controller_vel",
-        "joint_space_controller",
-        "cartesian_space_controller_ee_frame",
-        "cartesian_space_controller_robot_frame",
+        'cartesian_vel_controller_ee_frame',
+        'cartesian_vel_controller_robot_frame',
+        'joint_space_controller_vel',
+        'joint_space_controller',
+        'cartesian_space_controller_ee_frame',
+        'cartesian_space_controller_robot_frame',
     ]
 
     controllers_to_start = []
 
     for base_ctrl in available_base_controllers:
-        full_ctrl_name = f"arm_{arm_side}_{base_ctrl}"
+        full_ctrl_name = f'arm_{arm_side}_{base_ctrl}'
 
         if not target_controllers or full_ctrl_name in target_controllers:
             controllers_to_start.append(
@@ -212,50 +213,50 @@ def setup_arm_controllers(context, arm_side, *args, **kwargs):
 
 
 def setup_arm_side_controller(
-    context, controller_name, arm_side="right", load_gains_separately=False
+    context, controller_name, arm_side='right', load_gains_separately=False
 ):
 
-    arm_prefix = f"arm_{arm_side}"
-    side_controller_name = f"{arm_prefix}_{controller_name}"
+    arm_prefix = f'arm_{arm_side}'
+    side_controller_name = f'{arm_prefix}_{controller_name}'
 
     # Check if the end effector frame needs to be the grasping one
-    use_grasping_frame = read_launch_argument("use_grasping_frame", context)
+    use_grasping_frame = read_launch_argument('use_grasping_frame', context)
 
     # Creating the end effector frame name with side
-    if use_grasping_frame == "False":
-        ee_suffix = "7_link"
-        ee_prefix = "arm"
-    elif use_grasping_frame == "True":
-        ee_suffix = "grasping_link"
-        ee_prefix = "gripper"
+    if use_grasping_frame == 'False':
+        ee_suffix = '7_link'
+        ee_prefix = 'arm'
+    elif use_grasping_frame == 'True':
+        ee_suffix = 'grasping_link'
+        ee_prefix = 'gripper'
 
-    remappings = {"ARM_SIDE_PREFIX": arm_prefix,
-                  "SIDE": arm_side,
-                  "EE_PREFIX": ee_prefix,
-                  "EE_SUFFIX": ee_suffix
+    remappings = {'ARM_SIDE_PREFIX': arm_prefix,
+                  'SIDE': arm_side,
+                  'EE_PREFIX': ee_prefix,
+                  'EE_SUFFIX': ee_suffix
                   }
 
     param_file = os.path.join(
-        get_package_share_directory("tiago_pro_controller_configuration"),
-        "config",
-        "tsid",
-        f"{controller_name}.yaml",
+        get_package_share_directory('tiago_pro_controller_configuration'),
+        'config',
+        'tsid',
+        f'{controller_name}.yaml',
     )
 
     parsed_yaml = parse_parametric_yaml(
         source_files=[param_file], param_rewrites=remappings
     )
 
-    use_sim_time = read_launch_argument("use_sim_time", context)
+    use_sim_time = read_launch_argument('use_sim_time', context)
     if load_gains_separately:
-        sim_postfix = "_sim" if use_sim_time == "True" else ""
+        sim_postfix = '_sim' if use_sim_time == 'True' else ''
 
         gains_file = os.path.join(
-            get_package_share_directory("tiago_pro_controller_configuration"),
-            "config",
-            "tsid",
-            "gains",
-            f"{controller_name}{sim_postfix}.yaml",
+            get_package_share_directory('tiago_pro_controller_configuration'),
+            'config',
+            'tsid',
+            'gains',
+            f'{controller_name}{sim_postfix}.yaml',
         )
 
         parsed_gains = parse_parametric_yaml(
@@ -269,7 +270,7 @@ def setup_arm_side_controller(
             generate_load_controller_launch_description(
                 controller_name=side_controller_name,
                 controller_params_file=parsed_yaml,
-                extra_spawner_args=["--inactive"],
+                extra_spawner_args=['--inactive'],
             )
         ],
         forwarding=False,
