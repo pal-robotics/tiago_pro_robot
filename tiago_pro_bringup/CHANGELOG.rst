@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.5.4 (2026-11-17)
+------------------
 * Fix twist_mux topics
   See this related MR in omni_base_robot:
   gitlab.pal-robotics.com/robots/omni_base_robot/-/merge_requests/94

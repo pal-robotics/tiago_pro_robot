@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_robot
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.5.4 (2026-11-17)
+------------------
 * Bump cmake_minimum_required to 3.10
 * Contributors: Andrew Hoelscher
 
