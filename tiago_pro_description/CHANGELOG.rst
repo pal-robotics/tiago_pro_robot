@@ -2,6 +2,13 @@
 Changelog for package tiago_pro_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Only enable hector_gazebo_plugins for alum/humble
+* Automatic flake8
+* Bump cmake_minimum_required to 3.10
+* Contributors: Andrew Hoelscher
+
 2.5.3 (2026-11-04)
 ------------------
 
