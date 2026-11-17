@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.5.5 (2026-11-17)
+------------------
 * Add MuJoCo simulation support
 * Contributors: Ortisa Poci
 
