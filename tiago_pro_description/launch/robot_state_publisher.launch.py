@@ -60,6 +60,10 @@ class LaunchArguments(LaunchArgumentsBase):
     calibration_tool: DeclareLaunchArgument = TiagoProArgs.calibration_tool
     wheel_model: DeclareLaunchArgument = TiagoProArgs.wheel_model
     gazebo_version: DeclareLaunchArgument = CommonArgs.gazebo_version
+    sim_type: DeclareLaunchArgument = CommonArgs.sim_type
+    mj_control: DeclareLaunchArgument = CommonArgs.mj_control
+    world_name: DeclareLaunchArgument = CommonArgs.world_name
+    mj_initial_pose: DeclareLaunchArgument = CommonArgs.mj_initial_pose
 
 
 def declare_actions(launch_description: LaunchDescription, launch_args: LaunchArguments):
@@ -119,6 +123,10 @@ def create_robot_description_param(context, *args, **kwargs):
         'has_wrist_camera': read_launch_argument('has_wrist_camera', context),
         'wheel_model': read_launch_argument('wheel_model', context),
         'gazebo_version': read_launch_argument('gazebo_version', context),
+        'sim_type': read_launch_argument('sim_type', context),
+        'mj_control': read_launch_argument('mj_control', context),
+        'world_name': read_launch_argument('world_name', context),
+        'mj_initial_pose': read_launch_argument('mj_initial_pose', context)
     }
 
     calibration_dir = tempfile.TemporaryDirectory()

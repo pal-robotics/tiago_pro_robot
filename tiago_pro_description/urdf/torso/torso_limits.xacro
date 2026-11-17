@@ -1,0 +1,11 @@
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- Velocity limits -->
+  <xacro:property name="torso_max_vel" value="0.035" />
+
+  <!-- Joint limits -->
+  <xacro:property name="torso_lower_limit" value="0"/>
+  <xacro:property name="torso_upper_limit" value="0.35"/>
+  <xacro:property name="torso_max_effort" value="2000"/>
+
+</robot>

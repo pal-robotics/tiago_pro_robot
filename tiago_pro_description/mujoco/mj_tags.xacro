@@ -1,0 +1,464 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="tiago_pro">
+
+    <xacro:property name="scene_keyframe_qpos" default=""/>
+    <xacro:property name="scene_keyframe_ctrl" default=""/>
+
+    <!-- Actuators -->
+    <xacro:macro name="mj_robot_actuators" params="mj_control">
+      <actuator>
+        <!-- Torso -->
+        <xacro:mj_torso_actuators mj_control="${mj_control}" />
+        <!-- Base -->
+        <xacro:mj_base_actuators mj_control="${mj_control}"/>
+        <!-- Head -->
+        <xacro:mj_head_actuators mj_control="${mj_control}"/>
+        <!-- Arm left-->
+        <xacro:if value="${has_arm_left}">
+          <xacro:mj_arm_actuators name="arm_left" arm_type="${arm_type_left}" wrist_model="${wrist_model_left}" joint_reflect="-1" mj_control="${mj_control}"/>
+            <xacro:if value="${has_end_effector_left}">
+              <xacro:mj_gripper_actuators name="gripper_left" mj_control="${mj_control}"/>
+            </xacro:if>
+        </xacro:if>
+        <!-- Arm teleop left-->
+        <xacro:if value="${has_teleop_arm_left}">
+          <xacro:mj_arm_actuators name="arm_teleop_left" arm_type="${arm_type_teleop_left}" wrist_model="${wrist_model_left}" joint_reflect="-1" mj_control="${mj_control}"/>
+            <xacro:if value="${has_end_effector_teleop_left}">
+              <xacro:mj_gripper_actuators name="gripper_teleop_left" mj_control="${mj_control}"/>
+            </xacro:if>
+        </xacro:if>
+        <!-- Arm right-->
+        <xacro:if value="${has_arm_right}">
+          <xacro:mj_arm_actuators name="arm_right" arm_type="${arm_type_right}" wrist_model="${wrist_model_right}" joint_reflect="1" mj_control="${mj_control}"/>
+            <xacro:if value="${has_end_effector_right}">
+              <xacro:mj_gripper_actuators name="gripper_right" mj_control="${mj_control}"/>
+            </xacro:if>
+        </xacro:if>
+        <xacro:if value="${has_teleop_arm_right}">
+          <xacro:mj_arm_actuators name="arm_teleop_right" arm_type="${arm_type_teleop_right}" wrist_model="${wrist_model_right}" joint_reflect="1" mj_control="${mj_control}"/>
+            <xacro:if value="${has_end_effector_teleop_right}">
+              <xacro:mj_gripper_actuators name="gripper_teleop_right" mj_control="${mj_control}"/>
+            </xacro:if>
+        </xacro:if>
+      </actuator>
+    </xacro:macro>
+
+    <!-- Torso actuators -->
+    <xacro:macro name="mj_torso_actuators" params="mj_control">
+      <xacro:include filename="$(find tiago_pro_description)/urdf/torso/torso_limits.xacro"/>
+
+      <xacro:if value="${mj_control == 'position'}">
+        <position name="torso_lift_joint_position" joint="torso_lift_joint" ctrlrange="${torso_lower_limit} ${torso_upper_limit}" kp="100000" kv="1700"/>
+      </xacro:if>
+      <xacro:if value="${mj_control == 'motor'}">
+        <motor name="torso_lift_joint_motor" joint="torso_lift_joint" ctrllimited="true" ctrlrange="-${torso_max_effort} ${torso_max_effort}"/>
+      </xacro:if>
+    </xacro:macro>
+
+    <!-- Keyframes -->
+    <xacro:macro name="keyframe" params="mj_initial_pose mj_control">
+      <xacro:if value="${mj_initial_pose == 'start'}">
+        <xacro:keyframe_start mj_control="${mj_control}"/>
+      </xacro:if>
+      <xacro:if value="${mj_initial_pose == 'home'}">
+        <xacro:keyframe_home mj_control="${mj_control}"/>
+      </xacro:if>
+      <xacro:if value="${mj_initial_pose == 'teleop'}">
+        <xacro:keyframe_teleop mj_control="${mj_control}"/>
+      </xacro:if>
+    </xacro:macro>
+
+    <!-- Keyframe Home-->
+    <xacro:macro name="keyframe_home" params="mj_control">
+      <xacro:property name="floating_base_home_qpos" value="0.00321788 1.04669e-06 7.15218e-05 1 -8.19441e-06 2.83589e-05 3.29089e-05" />
+      <xacro:property name="wheels_home_qpos" value="0.0397089 0.0459619 0.0394997 0.0439906" />
+      <xacro:property name="torso_home_qpos"  value="0.0981592" />
+      <xacro:property name="head_home_qpos" value="-2.39835e-08 -0.00048861" />
+      <xacro:property name="arm_left_home_qpos" value="${'0.358855 -1.82854 0.469796 -2.3409 6.47402e-05 -1.20047 7.70349e-07' if has_arm_left else ''}"/>
+      <xacro:property name="arm_right_home_qpos" value="${'-0.358677 -1.82854 -0.469814 -2.3409 0.000151864 -1.20047 6.30393e-07' if has_arm_right else ''}" />
+      <xacro:property name="end_effector_left_home_qpos" value="${'0.0693099 -0.581114 0.628821 -0.544536 0.015247 -0.581197 0.618982 -0.544723' if has_end_effector_left else ''}" />
+      <xacro:property name="end_effector_right_home_qpos" value="${'0.0689822 -0.577907 0.653606 -0.534198 0.0151749 -0.577854 0.64683 -0.540382' if has_end_effector_right else ''}" />
+      <xacro:property name="arm_teleop_left_home_qpos" value="${arm_left_home_qpos if has_teleop_arm_left else ''}"/>
+      <xacro:property name="arm_teleop_right_home_qpos" value="${arm_right_home_qpos if has_teleop_arm_right else ''}" />
+      <xacro:property name="end_effector_teleop_left_home_qpos" value="${end_effector_left_home_qpos if has_end_effector_teleop_left else ''}" />
+      <xacro:property name="end_effector_teleop_right_home_qpos" value="${end_effector_right_home_qpos if has_end_effector_teleop_right else ''}" />
+
+      <xacro:property name="wheels_home_ctrl" value="0 0 0 0" />
+      <xacro:property name="torso_home_ctrl"  value="0.1" />
+      <xacro:property name="head_home_ctrl" value="-3.14289e-08 -0.000295535" />
+      <xacro:property name="arm_left_home_ctrl" value="${'0.36 -1.83 0.47 -2.35 0 -1.2 0' if has_arm_left else ''}"/>
+      <xacro:property name="arm_right_home_ctrl" value="${'-0.36 -1.83 -0.47 -2.35 -0 -1.2 0' if has_arm_right else ''}" />
+      <xacro:property name="end_effector_left_home_ctrl" value="${'0.07' if has_end_effector_left else ''}" />
+      <xacro:property name="end_effector_right_home_ctrl" value="${'0.07' if has_end_effector_right else ''}" />
+      <xacro:property name="arm_teleop_left_home_ctrl" value="${arm_left_home_ctrl if has_teleop_arm_left else ''}"/>
+      <xacro:property name="arm_teleop_right_home_ctrl" value="${arm_right_home_ctrl if has_teleop_arm_right else ''}" />
+      <xacro:property name="end_effector_teleop_left_home_ctrl" value="${end_effector_left_home_ctrl if has_end_effector_teleop_left else ''}" />
+      <xacro:property name="end_effector_teleop_right_home_ctrl" value="${end_effector_right_home_ctrl if has_end_effector_teleop_right else ''}" />
+
+      <xacro:if value="${mj_control == 'position'}">
+        <xacro:keyframe_home_position/>
+      </xacro:if>
+      <xacro:if value="${mj_control == 'motor'}">
+        <xacro:keyframe_home_motor/>
+      </xacro:if>
+    </xacro:macro>
+
+    <!-- Keyframe Start -->
+    <xacro:macro name="keyframe_start" params="mj_control">
+
+      <!-- Start Pose definition -->
+      <xacro:property name="floating_base_start_qpos" value="0.00317971 4.61283e-06 6.68116e-05 1 -7.44691e-06 0.00012147 5.41199e-05" />
+      <xacro:property name="wheels_start_qpos" value="0.035824 0.0445725 0.0369478 0.0414368" />
+      <xacro:property name="torso_start_qpos"  value="0.0815921" />
+      <xacro:property name="head_start_qpos" value="-2.41386e-08 -0.000488736" />
+      <xacro:property name="arm_left_start_qpos" value="${'0.000196507 -0.0488916 2.43727e-05 0.0375347 0.000186184 0.0032107 5.68522e-06' if has_arm_left else ''}"/>
+      <xacro:property name="arm_right_start_qpos" value="${'9.82442e-05 -0.0246418 1.20765e-05 0.0190004 9.41224e-05 0.00159954 2.81667e-06' if has_arm_right else ''}" />
+      <xacro:property name="end_effector_left_start_qpos" value="${'0.07 -0.5796 0.5796 -0.5796 0.0154 -0.5796 0.5796 -0.5796' if has_end_effector_left else ''}" />
+      <xacro:property name="end_effector_right_start_qpos" value="${'0.07 -0.5796 0.5796 -0.5796 0.0154 -0.5796 0.5796 -0.5796' if has_end_effector_right else ''}" />
+      <xacro:property name="arm_teleop_left_start_qpos" value="${ arm_left_start_qpos if has_teleop_arm_left else ''}"/>
+      <xacro:property name="arm_teleop_right_start_qpos" value="${ arm_right_start_qpos if has_teleop_arm_right else ''}" />
+      <xacro:property name="end_effector_teleop_left_start_qpos" value="${end_effector_left_start_qpos if has_end_effector_teleop_left else ''}" />
+      <xacro:property name="end_effector_teleop_right_start_qpos" value="${end_effector_right_start_qpos if has_end_effector_teleop_right else ''}" />
+
+      <xacro:property name="wheels_start_ctrl" value="0 0 0 0" />
+      <xacro:property name="torso_start_ctrl"  value="0.1" />
+      <xacro:property name="head_start_ctrl" value="-3.00141e-08 -0.000391926" />
+      <xacro:property name="arm_left_start_ctrl" value="${'9.8279e-05 -0.0246431 1.2139e-05 0.0190015 9.41875e-05 0.00159951 2.88192e-06' if has_arm_left else ''}"/>
+      <xacro:property name="arm_right_start_ctrl" value="${'-5.38726e-17 -8.81608e-15 -2.02697e-13 -2.83349e-11 9.13095e-14 -1.44649e-08 2.09457e-12' if has_arm_right else ''}" />
+      <xacro:property name="end_effector_left_start_ctrl" value="${'0.07' if has_end_effector_left else ''}" />
+      <xacro:property name="end_effector_right_start_ctrl" value="${'0.07' if has_end_effector_right else ''}" />
+      <xacro:property name="arm_teleop_left_start_ctrl" value="${arm_left_start_ctrl if has_teleop_arm_left else ''}"/>
+      <xacro:property name="arm_teleop_right_start_ctrl" value="${arm_right_start_ctrl if has_teleop_arm_right else ''}" />
+      <xacro:property name="end_effector_teleop_left_start_ctrl" value="${end_effector_left_start_ctrl if has_end_effector_teleop_left else ''}" />
+      <xacro:property name="end_effector_teleop_right_start_ctrl" value="${end_effector_right_start_ctrl if has_end_effector_teleop_right else ''}" />
+
+      <xacro:if value="${mj_control == 'position'}">
+        <xacro:keyframe_start_position/>
+      </xacro:if>
+      <xacro:if value="${mj_control == 'motor'}">
+        <xacro:keyframe_start_motor/>
+      </xacro:if>
+    </xacro:macro>
+
+     <!-- Keyframe Teleop -->
+    <xacro:macro name="keyframe_teleop" params="mj_control">
+
+      <!-- Teleop Pose definition -->
+      <xacro:property name="floating_base_teleop_qpos" value="0.00310676 6.12141e-07 6.46011e-05 1 -8.95642e-06 8.60243e-05 5.11783e-05" />
+      <xacro:property name="wheels_teleop_qpos" value="0.0405074 0.0476836 0.0402119 0.0448625" />
+      <xacro:property name="torso_teleop_qpos"  value="0.251592" />
+      <xacro:property name="head_teleop_qpos" value="-2.42728e-08 -0.000392233" />
+      <xacro:property name="arm_left_teleop_qpos" value="${'2.80051 -1.79842 -0.555993 -2.2158 -2.59991 0.911079 -0.26' if has_arm_left else ''}"/>
+      <xacro:property name="arm_right_teleop_qpos" value="${'-2.80039 -1.79815 0.555995 -2.21594 2.60009 0.911078 0.26' if has_arm_right else ''}" />
+      <xacro:property name="end_effector_left_teleop_qpos" value="${'0.07 -0.5796 0.5796 -0.5796 0.0154 -0.5796 0.5796 -0.5796' if has_end_effector_left else ''}" />
+      <xacro:property name="end_effector_right_teleop_qpos" value="${'0.07 -0.5796 0.5796 -0.5796 0.0154 -0.5796 0.5796 -0.5796' if has_end_effector_right else ''}" />
+      <xacro:property name="arm_teleop_left_teleop_qpos" value="${arm_left_teleop_qpos if has_teleop_arm_left else ''}"/>
+      <xacro:property name="arm_teleop_right_teleop_qpos" value="${arm_right_teleop_qpos if has_teleop_arm_right else ''}" />
+      <xacro:property name="end_effector_teleop_left_teleop_qpos" value="${end_effector_left_teleop_qpos if has_end_effector_teleop_left else ''}" />
+      <xacro:property name="end_effector_teleop_right_teleop_qpos" value="${end_effector_right_teleop_qpos if has_end_effector_teleop_right else ''}" />
+
+      <xacro:property name="wheels_teleop_ctrl" value="0 0 0 0" />
+      <xacro:property name="torso_teleop_ctrl"  value="0.27" />
+      <xacro:property name="head_teleop_ctrl" value="-3.14289e-08 -0.000295535" />
+      <xacro:property name="arm_left_teleop_ctrl" value="${'2.8 -1.81 -0.56 -2.2 -2.6 0.91 -0.26' if has_arm_left else ''}"/>
+      <xacro:property name="arm_right_teleop_ctrl" value="${'-2.8 -1.81 0.56 -2.2 2.6 0.91 0.26' if has_arm_right else ''}" />
+      <xacro:property name="end_effector_left_teleop_ctrl" value="${'0.07' if has_end_effector_left else ''}" />
+      <xacro:property name="end_effector_right_teleop_ctrl" value="${'0.07' if has_end_effector_right else ''}" />
+      <xacro:property name="arm_teleop_left_teleop_ctrl" value="${arm_left_teleop_ctrl if has_teleop_arm_left else ''}"/>
+      <xacro:property name="arm_teleop_right_teleop_ctrl" value="${arm_right_teleop_ctrl  if has_teleop_arm_right else ''}" />
+      <xacro:property name="end_effector_teleop_left_teleop_ctrl" value="${end_effector_left_teleop_ctrl if has_end_effector_teleop_left else ''}" />
+      <xacro:property name="end_effector_teleop_right_teleop_ctrl" value="${end_effector_right_teleop_ctrl if has_end_effector_teleop_right else ''}" />
+
+      <xacro:if value="${mj_control == 'position'}">
+        <xacro:keyframe_teleop_position/>
+      </xacro:if>
+      <xacro:if value="${mj_control == 'motor'}">
+        <xacro:keyframe_teleop_motor/>
+      </xacro:if>
+    </xacro:macro>
+
+    <!-- Keyframe Home using position actuators-->
+    <xacro:macro name="keyframe_home_position">
+      <keyframe>
+        <key name="home"
+          ctrl="
+            ${scene_keyframe_ctrl}
+
+            ${torso_home_ctrl}
+
+            ${wheels_home_ctrl}
+
+            ${head_home_ctrl}
+
+            ${arm_left_home_ctrl}
+
+            ${end_effector_left_home_ctrl}
+
+            ${arm_teleop_left_home_ctrl}
+
+            ${end_effector_teleop_left_home_ctrl}
+
+            ${arm_right_home_ctrl}
+
+            ${end_effector_right_home_ctrl}
+
+            ${arm_teleop_right_home_ctrl}
+
+            ${end_effector_teleop_right_home_ctrl}"
+
+          qpos="
+            ${floating_base_home_qpos}
+
+            ${wheels_home_qpos}
+
+            ${torso_home_qpos}
+
+            ${head_home_qpos}
+
+            ${arm_left_home_qpos}
+
+            ${end_effector_left_home_qpos}
+
+            ${arm_right_home_qpos}
+
+            ${end_effector_right_home_qpos}
+
+            ${arm_teleop_right_home_qpos}
+
+            ${end_effector_teleop_right_home_qpos}
+
+            ${arm_teleop_left_home_qpos}
+
+            ${end_effector_teleop_left_home_qpos}
+
+            ${scene_keyframe_qpos}"
+        />
+      </keyframe>
+    </xacro:macro>
+
+    <!-- Keyframe Home using motor actuators -->
+    <xacro:macro name="keyframe_home_motor">
+
+      <keyframe>
+        <key name="home"
+          qpos="
+
+          ${floating_base_home_qpos}
+
+          ${wheels_home_qpos}
+
+          ${torso_home_qpos}
+
+          ${head_home_qpos}
+
+          ${arm_left_home_qpos}
+
+          ${end_effector_left_home_qpos}
+
+          ${arm_right_home_qpos}
+
+          ${end_effector_right_home_qpos}
+
+          ${arm_teleop_right_home_qpos}
+
+          ${end_effector_teleop_right_home_qpos}
+
+          ${arm_teleop_left_home_qpos}
+
+          ${end_effector_teleop_left_home_qpos}
+
+          ${scene_keyframe_qpos}"
+        />
+      </keyframe>
+    </xacro:macro>
+
+    <!-- Keyframe Start using position actuators-->
+    <xacro:macro name="keyframe_start_position">
+      <keyframe>
+        <key name="start"
+
+          ctrl="
+            ${scene_keyframe_ctrl}
+
+            ${torso_start_ctrl}
+
+            ${wheels_start_ctrl}
+
+            ${head_start_ctrl}
+
+            ${arm_left_start_ctrl}
+
+            ${end_effector_left_start_ctrl}
+
+            ${arm_teleop_left_start_ctrl}
+
+            ${end_effector_teleop_left_start_ctrl}
+
+            ${arm_right_start_ctrl}
+
+            ${end_effector_right_start_ctrl}
+
+            ${arm_teleop_right_start_ctrl}
+
+            ${end_effector_teleop_right_start_ctrl}"
+
+          qpos="
+            ${floating_base_start_qpos}
+
+            ${wheels_start_qpos}
+
+            ${torso_start_qpos}
+
+            ${head_start_qpos}
+
+            ${arm_left_start_qpos}
+
+            ${end_effector_left_start_qpos}
+
+            ${arm_right_start_qpos}
+
+            ${end_effector_right_start_qpos}
+
+            ${arm_teleop_right_start_qpos}
+
+            ${end_effector_teleop_right_start_qpos}
+
+            ${arm_teleop_left_start_qpos}
+
+            ${end_effector_teleop_left_start_qpos}
+
+            ${scene_keyframe_qpos}"
+        />
+      </keyframe>
+    </xacro:macro>
+
+    <!-- Keyframe Start using motor actuators -->
+    <xacro:macro name="keyframe_start_motor">
+
+      <keyframe>
+        <key name="start"
+          qpos="
+
+          ${floating_base_start_qpos}
+
+          ${wheels_start_qpos}
+
+          ${torso_start_qpos}
+
+          ${head_start_qpos}
+
+          ${arm_left_start_qpos}
+
+          ${end_effector_left_start_qpos}
+
+          ${arm_right_start_qpos}
+
+          ${end_effector_right_start_qpos}
+
+          ${arm_teleop_right_start_qpos}
+
+          ${end_effector_teleop_right_start_qpos}
+
+          ${arm_teleop_left_start_qpos}
+
+          ${end_effector_teleop_left_start_qpos}
+
+          ${scene_keyframe_qpos}"
+        />
+      </keyframe>
+    </xacro:macro>
+
+    <!-- Keyframe Teleop using position actuators-->
+    <xacro:macro name="keyframe_teleop_position">
+      <keyframe>
+        <key name="teleop"
+          ctrl="
+            ${scene_keyframe_ctrl}
+
+            ${torso_teleop_ctrl}
+
+            ${wheels_teleop_ctrl}
+
+            ${head_teleop_ctrl}
+
+            ${arm_left_teleop_ctrl}
+
+            ${end_effector_left_teleop_ctrl}
+
+            ${arm_teleop_left_teleop_ctrl}
+
+            ${end_effector_teleop_left_teleop_ctrl}
+
+            ${arm_right_teleop_ctrl}
+
+            ${end_effector_right_teleop_ctrl}
+
+            ${arm_teleop_right_teleop_ctrl}
+
+            ${end_effector_teleop_right_teleop_ctrl}"
+
+          qpos="
+            ${floating_base_teleop_qpos}
+
+            ${wheels_teleop_qpos}
+
+            ${torso_teleop_qpos}
+
+            ${head_teleop_qpos}
+
+            ${arm_left_teleop_qpos}
+
+            ${end_effector_left_teleop_qpos}
+
+            ${arm_right_teleop_qpos}
+
+            ${end_effector_right_teleop_qpos}
+
+            ${arm_teleop_right_teleop_qpos}
+
+            ${end_effector_teleop_right_teleop_qpos}
+
+            ${arm_teleop_left_teleop_qpos}
+
+            ${end_effector_teleop_left_teleop_qpos}
+
+            ${scene_keyframe_qpos}"
+        />
+      </keyframe>
+    </xacro:macro>
+
+    <!-- Keyframe Teleop using motor actuators -->
+    <xacro:macro name="keyframe_teleop_motor">
+      <keyframe>
+        <key name="teleop"
+          qpos="
+            ${floating_base_teleop_qpos}
+
+            ${wheels_teleop_qpos}
+
+            ${torso_teleop_qpos}
+
+            ${head_teleop_qpos}
+
+            ${arm_left_teleop_qpos}
+
+            ${end_effector_left_teleop_qpos}
+
+            ${arm_right_teleop_qpos}
+
+            ${end_effector_right_teleop_qpos}
+
+            ${arm_teleop_right_teleop_qpos}
+
+            ${end_effector_teleop_right_teleop_qpos}
+
+            ${arm_teleop_left_teleop_qpos}
+
+            ${end_effector_teleop_left_teleop_qpos}
+
+            ${scene_keyframe_qpos}"
+        />
+      </keyframe>
+    </xacro:macro>
+
+</robot>
