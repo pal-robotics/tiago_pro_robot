@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- 
+<!--
   Copyright (c) 2024 PAL Robotics S.L. All rights reserved.
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,19 +15,22 @@
   limitations under the License.
  -->
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:macro name="ros2_control_torso" params="name reduction" >
+  <xacro:macro name="ros2_control_torso" params="name reduction sim_type:=^|gazebo" >
     <joint name="${name}_joint">
       <command_interface name="position" />
-      <xacro:if value="${gazebo_version == 'classic'}">
-        <command_interface name="velocity" />
+      <xacro:if value="${sim_type != 'mujoco-ros2-control'}">
+        <xacro:if value="${gazebo_version == 'classic'}">
+          <command_interface name="velocity" />
+        </xacro:if>
       </xacro:if>
+
       <state_interface name="position" />
       <state_interface name="velocity" />
       <state_interface name="effort" />
     </joint>
 
     <xacro:include filename="$(find tiago_pro_description)/urdf/torso/torso.transmission.urdf.xacro" />
-    <xacro:torso_simple_transmission name="${name}" reduction="${reduction}" />
+    <xacro:torso_simple_transmission name="${name}" reduction="${reduction}" sim_type="${sim_type}" />
 
   </xacro:macro>
 </robot>

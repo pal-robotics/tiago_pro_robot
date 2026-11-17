@@ -107,6 +107,20 @@
 
   <xacro:arg name="wheel_model" default="moog" />
 
+  <!-- mujoco-ros2-control, mujoco, gazebo -->
+  <xacro:arg name="sim_type" default="gazebo" />
+
+  <!-- false, position, motor -->
+  <xacro:arg name="mj_control" default="false" />
+
+  <xacro:arg name="mj_gravcomp" default="false" />
+
+  <!-- start, home, teleop -->
+  <xacro:arg name="mj_initial_pose" default="start" />
+
+  <!-- floor -->
+  <xacro:arg name="world_name" default="floor" />
+
   <!-- PROPERTIES -->
 
   <xacro:property name="torque_estimation" value="$(arg torque_estimation)" />
@@ -147,8 +161,8 @@
   <xacro:property name="end_effector_left_name" value="gripper_left" />
 
   <xacro:property name="has_arm_right" value="${arm_type_right not in ['no-arm']}"/>
-  <xacro:property name="has_teleop_arm_right" value="${arm_type_teleop_right not in ['no-arm']}"/>
-  <xacro:property name="has_teleop_arm_left" value="${arm_type_teleop_left not in ['no-arm']}"/>
+  <xacro:property name="has_teleop_arm_right" value="${arm_type_teleop_right not in ['no-arm'] and has_teleop_arms}"/>
+  <xacro:property name="has_teleop_arm_left" value="${arm_type_teleop_left not in ['no-arm'] and has_teleop_arms}"/>
 
   <xacro:property name="has_ft_sensor_right" value="${ft_sensor_right not in ['no-ft-sensor']}"/>
   <xacro:property name="has_teleop_ft_sensor_right" value="${ft_sensor_teleop_right not in ['no-ft-sensor']}"/>
@@ -166,6 +180,13 @@
   <xacro:property name="end_effector_teleop_right_name" value="gripper_teleop_right" />
 
   <xacro:property name="has_wrist_camera" value="$(arg has_wrist_camera)" />
+
+  <!-- Mujoco properties -->
+  <xacro:property name="sim_type" value="$(arg sim_type)" />
+  <xacro:property name="mj_control" value="$(arg mj_control)"/>
+  <xacro:property name="mj_gravcomp" value="$(arg mj_gravcomp)"/>
+  <xacro:property name="world_name" value="$(arg world_name)"/>
+  <xacro:property name="mj_initial_pose" value="$(arg mj_initial_pose)"/>
 
   <xacro:property name="wheel_model" value="$(arg wheel_model)" />
 
@@ -212,6 +233,36 @@
   <xacro:if value="${wheel_model not in ['moog', 'grassland', 'no-wheels']}">
     <xacro:wrong_wheel_model />
   </xacro:if>
+  <xacro:if value="${sim_type not in ['mujoco-ros2-control', 'mujoco', 'gazebo']}">
+      <xacro:wrong_sim_type />
+  </xacro:if>
+  <xacro:if value="${sim_type in ['mujoco-ros2-control', 'mujoco'] and end_effector_left not in ['no-end-effector', 'pal-pro-gripper']}">
+    <xacro:incompatible_end_effector_left_for_mujoco />
+  </xacro:if>
+  <xacro:if value="${sim_type in ['mujoco-ros2-control', 'mujoco'] and end_effector_right not in ['no-end-effector', 'pal-pro-gripper']}">
+    <xacro:incompatible_end_effector_right_for_mujoco />
+  </xacro:if>
+  <xacro:if value="${sim_type in ['mujoco-ros2-control', 'mujoco'] and end_effector_teleop_left not in ['no-end-effector', 'pal-pro-gripper']}">
+    <xacro:incompatible_end_effector_teleop_left_for_mujoco />
+  </xacro:if>
+  <xacro:if value="${sim_type in ['mujoco-ros2-control', 'mujoco'] and end_effector_teleop_right not in ['no-end-effector', 'pal-pro-gripper']}">
+    <xacro:incompatible_end_effector_teleop_right_for_mujoco />
+  </xacro:if>
+  <xacro:if value="${sim_type in ['mujoco-ros2-control', 'mujoco'] and arm_type_left not in ['tiago-pro']}">
+    <xacro:incompatible_arm_type_left_for_mujoco />
+  </xacro:if>
+  <xacro:if value="${sim_type in ['mujoco-ros2-control', 'mujoco'] and arm_type_right not in ['tiago-pro']}">
+    <xacro:incompatible_arm_type_right_for_mujoco />
+  </xacro:if>
+  <xacro:if value="${sim_type in ['mujoco-ros2-control', 'mujoco'] and arm_type_teleop_left not in ['tiago-pro']}">
+    <xacro:incompatible_arm_type_teleop_left_for_mujoco />
+  </xacro:if>
+  <xacro:if value="${sim_type in ['mujoco-ros2-control', 'mujoco'] and arm_type_teleop_right not in ['tiago-pro']}">
+    <xacro:incompatible_arm_type_teleop_right_for_mujoco />
+  </xacro:if>
+  <xacro:unless value="$(arg use_sim_time)">
+      <xacro:property name="sim_type" value="gazebo" />
+  </xacro:unless>
 
   <!-- Compatibility check within TC and ft sensors-->
   <!-- <xacro:if value="${ft_sensor_right == 'ati' and wrist_model_right=='straight-wrist'}">
@@ -402,7 +453,12 @@
 
   </xacro:if>
 
-  <!-- ROS 2 Control -->
-  <xacro:tiago_pro_ros2_control use_sim_time="$(arg use_sim_time)" has_teleop_arms="${has_teleop_arms}" gazebo_version="${gazebo_version}"/>
+   <xacro:if value="${sim_type in ['mujoco', 'mujoco-ros2-control']}">
+    <xacro:tiago_pro_mj world_name="${world_name}" mj_control="${mj_control}"/>
+  </xacro:if>
 
+  <xacro:if value="${sim_type != 'mujoco'}">
+    <!-- ROS 2 Control -->
+    <xacro:tiago_pro_ros2_control use_sim_time="$(arg use_sim_time)" has_teleop_arms="${has_teleop_arms}" sim_type="${sim_type}" gazebo_version="${gazebo_version}"/>
+  </xacro:if>
 </robot>

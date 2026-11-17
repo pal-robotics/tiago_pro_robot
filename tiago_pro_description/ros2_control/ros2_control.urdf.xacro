@@ -16,11 +16,11 @@
  -->
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="tiago_pro">
 
-  <xacro:macro name="ros2_control_wheels">
-    <xacro:ros2_control_wheel side="front_right" />
-    <xacro:ros2_control_wheel side="front_left" />
-    <xacro:ros2_control_wheel side="rear_right" />
-    <xacro:ros2_control_wheel side="rear_left" />
+  <xacro:macro name="ros2_control_wheels" params="sim_type:=^|gazebo">
+    <xacro:ros2_control_wheel side="front_right" sim_type="${sim_type}" />
+    <xacro:ros2_control_wheel side="front_left" sim_type="${sim_type}"/>
+    <xacro:ros2_control_wheel side="rear_right" sim_type="${sim_type}"/>
+    <xacro:ros2_control_wheel side="rear_left" sim_type="${sim_type}"/>
   </xacro:macro>
 
   <xacro:macro name="allegro_ros2_control" params="side allegro_can pid_controllers">
@@ -34,17 +34,17 @@
     </ros2_control>
   </xacro:macro>
 
-  <xacro:macro name="ros2_control_arms">
+  <xacro:macro name="ros2_control_arms" params="sim_type:=^|gazebo">
     <!-- arm left -->
     <xacro:if value="${has_arm_left}">
-      <xacro:ros2_control_arm name="arm_left_1" reduction="121.0" offset_value="${arm_left_1_joint_offset}" use_sea_transmission="${torque_estimation}" />
-      <xacro:ros2_control_arm name="arm_left_2" reduction="121.0" offset_value="${arm_left_2_joint_offset}" use_sea_transmission="${torque_estimation}" />
-      <xacro:ros2_control_arm name="arm_left_3" reduction="101.0" offset_value="${arm_left_3_joint_offset}" use_sea_transmission="${torque_estimation}" />
-      <xacro:ros2_control_arm name="arm_left_4" reduction="101.0" offset_value="${arm_left_4_joint_offset}" use_sea_transmission="${torque_estimation}" />
-      <xacro:ros2_control_arm name="arm_left_5" reduction="101.0" offset_value="${arm_left_5_joint_offset}" use_sea_transmission="${torque_estimation}" />
+      <xacro:ros2_control_arm name="arm_left_1" reduction="121.0" offset_value="${arm_left_1_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+      <xacro:ros2_control_arm name="arm_left_2" reduction="121.0" offset_value="${arm_left_2_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+      <xacro:ros2_control_arm name="arm_left_3" reduction="101.0" offset_value="${arm_left_3_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+      <xacro:ros2_control_arm name="arm_left_4" reduction="101.0" offset_value="${arm_left_4_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+      <xacro:ros2_control_arm name="arm_left_5" reduction="101.0" offset_value="${arm_left_5_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
       <xacro:if value="${wrist_model_left != 'short-wrist'}">
-        <xacro:ros2_control_arm name="arm_left_6" reduction="101.0" offset_value="${arm_left_6_joint_offset}" use_sea_transmission="${torque_estimation}" />
-        <xacro:ros2_control_arm name="arm_left_7" reduction="101.0" offset_value="${arm_left_7_joint_offset}" use_sea_transmission="${torque_estimation}" />
+        <xacro:ros2_control_arm name="arm_left_6" reduction="101.0" offset_value="${arm_left_6_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+        <xacro:ros2_control_arm name="arm_left_7" reduction="101.0" offset_value="${arm_left_7_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
       </xacro:if>
       <xacro:if value="${has_ft_sensor_left}">
         <xacro:include filename="$(find pal_urdf_utils)/urdf/ft_sensors/ftsensor.ros2_control.xacro"/>
@@ -52,20 +52,20 @@
       </xacro:if>
 
       <xacro:if value="${end_effector_left == 'pal-pro-gripper'}">
-        <xacro:ros2_control_pal_pro_gripper name="gripper_left" reduction="1.0" />
+        <xacro:ros2_control_pal_pro_gripper name="gripper_left" reduction="1.0" sim_type="${sim_type}"/>
       </xacro:if>
     </xacro:if>
 
     <!-- arm right -->
     <xacro:if value="${has_arm_right}">
-      <xacro:ros2_control_arm name="arm_right_1" reduction="121.0" offset_value="${arm_right_1_joint_offset}" use_sea_transmission="${torque_estimation}" />
-      <xacro:ros2_control_arm name="arm_right_2" reduction="121.0" offset_value="${arm_right_2_joint_offset}" use_sea_transmission="${torque_estimation}" />
-      <xacro:ros2_control_arm name="arm_right_3" reduction="101.0" offset_value="${arm_right_3_joint_offset}" use_sea_transmission="${torque_estimation}" />
-      <xacro:ros2_control_arm name="arm_right_4" reduction="101.0" offset_value="${arm_right_4_joint_offset}" use_sea_transmission="${torque_estimation}" />
-      <xacro:ros2_control_arm name="arm_right_5" reduction="101.0" offset_value="${arm_right_5_joint_offset}" use_sea_transmission="${torque_estimation}" />
+      <xacro:ros2_control_arm name="arm_right_1" reduction="121.0" offset_value="${arm_right_1_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+      <xacro:ros2_control_arm name="arm_right_2" reduction="121.0" offset_value="${arm_right_2_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+      <xacro:ros2_control_arm name="arm_right_3" reduction="101.0" offset_value="${arm_right_3_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+      <xacro:ros2_control_arm name="arm_right_4" reduction="101.0" offset_value="${arm_right_4_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+      <xacro:ros2_control_arm name="arm_right_5" reduction="101.0" offset_value="${arm_right_5_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
       <xacro:if value="${wrist_model_right != 'short-wrist'}">
-        <xacro:ros2_control_arm name="arm_right_6" reduction="101.0" offset_value="${arm_right_6_joint_offset}" use_sea_transmission="${torque_estimation}" />
-        <xacro:ros2_control_arm name="arm_right_7" reduction="101.0" offset_value="${arm_right_7_joint_offset}" use_sea_transmission="${torque_estimation}" />
+        <xacro:ros2_control_arm name="arm_right_6" reduction="101.0" offset_value="${arm_right_6_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+        <xacro:ros2_control_arm name="arm_right_7" reduction="101.0" offset_value="${arm_right_7_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
       </xacro:if>
       <xacro:if value="${has_ft_sensor_right}">
         <xacro:include filename="$(find pal_urdf_utils)/urdf/ft_sensors/ftsensor.ros2_control.xacro"/>
@@ -74,26 +74,30 @@
 
       <xacro:if value="${end_effector_right == 'pal-pro-gripper'}">
         <!-- pal-pro-gripper -->
-        <xacro:ros2_control_pal_pro_gripper name="gripper_right" reduction="1.0" />
+        <xacro:ros2_control_pal_pro_gripper name="gripper_right" reduction="1.0" sim_type="${sim_type}"/>
       </xacro:if>
     </xacro:if>
 
     <xacro:if value="${has_teleop_arms}">
-        <xacro:ros2_control_arm name="arm_teleop_right_1" reduction="121.0" offset_value="${arm_right_1_joint_offset}" use_sea_transmission="${torque_estimation}" />
-        <xacro:ros2_control_arm name="arm_teleop_right_2" reduction="121.0" offset_value="${arm_right_2_joint_offset}" use_sea_transmission="${torque_estimation}" />
-        <xacro:ros2_control_arm name="arm_teleop_right_3" reduction="101.0" offset_value="${arm_right_3_joint_offset}" use_sea_transmission="${torque_estimation}" />
-        <xacro:ros2_control_arm name="arm_teleop_right_4" reduction="101.0" offset_value="${arm_right_4_joint_offset}" use_sea_transmission="${torque_estimation}" />
-        <xacro:ros2_control_arm name="arm_teleop_right_5" reduction="101.0" offset_value="${arm_right_5_joint_offset}" use_sea_transmission="${torque_estimation}" />
-        <xacro:ros2_control_arm name="arm_teleop_right_6" reduction="101.0" offset_value="${arm_right_6_joint_offset}" use_sea_transmission="${torque_estimation}" />
-        <xacro:ros2_control_arm name="arm_teleop_right_7" reduction="101.0" offset_value="${arm_right_7_joint_offset}" use_sea_transmission="${torque_estimation}" />
+        <xacro:ros2_control_arm name="arm_teleop_right_1" reduction="121.0" offset_value="${arm_right_1_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+        <xacro:ros2_control_arm name="arm_teleop_right_2" reduction="121.0" offset_value="${arm_right_2_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+        <xacro:ros2_control_arm name="arm_teleop_right_3" reduction="101.0" offset_value="${arm_right_3_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+        <xacro:ros2_control_arm name="arm_teleop_right_4" reduction="101.0" offset_value="${arm_right_4_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+        <xacro:ros2_control_arm name="arm_teleop_right_5" reduction="101.0" offset_value="${arm_right_5_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+        <xacro:if value="${wrist_model_right != 'short-wrist'}">
+          <xacro:ros2_control_arm name="arm_teleop_right_6" reduction="101.0" offset_value="${arm_right_6_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+          <xacro:ros2_control_arm name="arm_teleop_right_7" reduction="101.0" offset_value="${arm_right_7_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+        </xacro:if>
 
-        <xacro:ros2_control_arm name="arm_teleop_left_1" reduction="121.0" offset_value="${arm_left_1_joint_offset}" use_sea_transmission="${torque_estimation}" />
-        <xacro:ros2_control_arm name="arm_teleop_left_2" reduction="121.0" offset_value="${arm_left_2_joint_offset}" use_sea_transmission="${torque_estimation}" />
-        <xacro:ros2_control_arm name="arm_teleop_left_3" reduction="101.0" offset_value="${arm_left_3_joint_offset}" use_sea_transmission="${torque_estimation}" />
-        <xacro:ros2_control_arm name="arm_teleop_left_4" reduction="101.0" offset_value="${arm_left_4_joint_offset}" use_sea_transmission="${torque_estimation}" />
-        <xacro:ros2_control_arm name="arm_teleop_left_5" reduction="101.0" offset_value="${arm_left_5_joint_offset}" use_sea_transmission="${torque_estimation}" />
-        <xacro:ros2_control_arm name="arm_teleop_left_6" reduction="101.0" offset_value="${arm_left_6_joint_offset}" use_sea_transmission="${torque_estimation}" />
-        <xacro:ros2_control_arm name="arm_teleop_left_7" reduction="101.0" offset_value="${arm_left_7_joint_offset}" use_sea_transmission="${torque_estimation}" />
+        <xacro:ros2_control_arm name="arm_teleop_left_1" reduction="121.0" offset_value="${arm_left_1_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+        <xacro:ros2_control_arm name="arm_teleop_left_2" reduction="121.0" offset_value="${arm_left_2_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+        <xacro:ros2_control_arm name="arm_teleop_left_3" reduction="101.0" offset_value="${arm_left_3_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+        <xacro:ros2_control_arm name="arm_teleop_left_4" reduction="101.0" offset_value="${arm_left_4_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+        <xacro:ros2_control_arm name="arm_teleop_left_5" reduction="101.0" offset_value="${arm_left_5_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+        <xacro:if value="${wrist_model_left != 'short-wrist'}">
+          <xacro:ros2_control_arm name="arm_teleop_left_6" reduction="101.0" offset_value="${arm_left_6_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+          <xacro:ros2_control_arm name="arm_teleop_left_7" reduction="101.0" offset_value="${arm_left_7_joint_offset}" use_sea_transmission="${torque_estimation}" sim_type="${sim_type}"/>
+        </xacro:if>
 
         <xacro:if value="${has_teleop_ft_sensor_right}">
           <xacro:include filename="$(find pal_urdf_utils)/urdf/ft_sensors/ftsensor.ros2_control.xacro"/>
@@ -106,23 +110,23 @@
         </xacro:if>
 
         <xacro:if value="${end_effector_teleop_right == 'pal-pro-gripper'}">
-          <xacro:ros2_control_pal_pro_gripper name="gripper_teleop_right" reduction="1.0" />
+          <xacro:ros2_control_pal_pro_gripper name="gripper_teleop_right" reduction="1.0" sim_type="${sim_type}"/>
         </xacro:if>
         <xacro:if value="${end_effector_teleop_left == 'pal-pro-gripper'}">
-          <xacro:ros2_control_pal_pro_gripper name="gripper_teleop_left" reduction="1.0" />
+          <xacro:ros2_control_pal_pro_gripper name="gripper_teleop_left" reduction="1.0" sim_type="${sim_type}"/>
         </xacro:if>
 
 
     </xacro:if>
   </xacro:macro>
 
-  <xacro:macro name="ros2_control_head_offset">
+  <xacro:macro name="ros2_control_head_offset" params="sim_type:=^|gazebo">
     <!-- head -->
-    <xacro:ros2_control_head_joint name="head_1" reduction="1.0" offset_value="${head_1_joint_offset}" />
-    <xacro:ros2_control_head_joint name="head_2" reduction="1.0" offset_value="${head_2_joint_offset}" />
+    <xacro:ros2_control_head_joint name="head_1" reduction="1.0" offset_value="${head_1_joint_offset}" sim_type="${sim_type}" />
+    <xacro:ros2_control_head_joint name="head_2" reduction="1.0" offset_value="${head_2_joint_offset}" sim_type="${sim_type}"/>
   </xacro:macro>
 
-  <xacro:macro name="tiago_pro_ros2_control" params="use_sim_time:=^|false has_teleop_arms:=^|false gazebo_version:=^|classic">
+  <xacro:macro name="tiago_pro_ros2_control" params="use_sim_time:=^|false has_teleop_arms:=^|false gazebo_version:=^|classic sim_type:=^|gazebo">
 
     <xacro:arg name="arm_type_left" default="tiago-pro"/>
     <xacro:arg name="arm_type_right" default="tiago-pro"/>
@@ -176,42 +180,60 @@
     <!-- Simulation -->
     <xacro:if value="$(arg use_sim_time)">
       <!-- Init the ROS 2 control gazebo interface -->
-      <gazebo>
-        <xacro:if value="${gazebo_version == 'classic'}">
-          <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-            <parameters>$(find tiago_pro_description)/ros2_control/gazebo_controller_manager_cfg.yaml</parameters>
-          </plugin>
-        </xacro:if>
-        <xacro:if value="${gazebo_version == 'gazebo'}">
-          <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
-            <robot_param>robot_description</robot_param>
-            <robot_param_node>robot_state_publisher</robot_param_node>
-            <parameters>$(find tiago_pro_description)/ros2_control/gazebo_controller_manager_cfg.yaml</parameters>
-          </plugin>
-        </xacro:if>
-      </gazebo>
+      <xacro:if value="${sim_type == 'gazebo'}">
+        <gazebo>
+          <xacro:if value="${gazebo_version == 'classic'}">
+            <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+              <parameters>$(find tiago_pro_description)/ros2_control/gazebo_controller_manager_cfg.yaml</parameters>
+            </plugin>
+          </xacro:if>
+          <xacro:if value="${gazebo_version == 'gazebo'}">
+            <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+              <robot_param>robot_description</robot_param>
+              <robot_param_node>robot_state_publisher</robot_param_node>
+              <parameters>$(find tiago_pro_description)/ros2_control/gazebo_controller_manager_cfg.yaml</parameters>
+            </plugin>
+          </xacro:if>
+        </gazebo>
+      </xacro:if>
 
       <ros2_control name="ros2_control_gazebo_system" type="system">
         <hardware>
-          <xacro:if value="${gazebo_version == 'classic'}">
-            <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+          <xacro:if value="${sim_type == 'mujoco-ros2-control'}">
+            <plugin>mujoco_ros2_control/MujocoSystemInterface</plugin>
+            <!-- Override the slowdown settings in the Simulate App and run at 3x speed -->
+            <param name="sim_speed_factor">1.0</param>
+            <param name="pids_config_file">$(find tiago_pro_mujoco)/config/pids.yaml</param>
+            <param name="initial_keyframe">${mj_initial_pose}</param>
           </xacro:if>
-          <xacro:if value="${gazebo_version == 'gazebo'}">
-            <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+          <xacro:if value="${sim_type == 'gazebo'}">
+            <xacro:if value="${gazebo_version == 'classic'}">
+              <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+            </xacro:if>
+            <xacro:if value="${gazebo_version == 'gazebo'}">
+              <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+            </xacro:if>
           </xacro:if>
         </hardware>
 
+        <sensor name="head">
+          <param name="frame_name">head_front_camera_color_eye_frame</param>
+          <param name="image_topic">/head_front_camera/color/image_raw</param>
+          <param name="info_topic">/head_front_camera/color/camera_info</param>
+          <param name="depth_topic">/head_front_camera/depth/image_rect_raw</param>
+        </sensor>
+
         <!-- wheels -->
-        <xacro:ros2_control_wheels/>
+        <xacro:ros2_control_wheels sim_type="${sim_type}"/>
 
         <!-- torso -->
-        <xacro:ros2_control_torso name="torso_lift" reduction="1.0" />
+        <xacro:ros2_control_torso name="torso_lift" reduction="1.0" sim_type="${sim_type}"/>
 
         <!-- head -->
-        <xacro:ros2_control_head_offset />
+        <xacro:ros2_control_head_offset sim_type="${sim_type}"/>
 
         <!-- arms -->
-        <xacro:ros2_control_arms/>
+        <xacro:ros2_control_arms sim_type="${sim_type}"/>
         <xacro:arg name="pid_controllers" default="false"/>
 
         <xacro:if value="${end_effector_right == 'allegro-hand'}">
@@ -242,7 +264,7 @@
           </hardware>
 
           <!-- wheels -->
-          <xacro:ros2_control_wheels />
+          <xacro:ros2_control_wheels sim_type="${sim_type}"/>
 
         </ros2_control>
       </xacro:if>
@@ -255,7 +277,7 @@
         </hardware>
 
         <!-- head -->
-        <xacro:ros2_control_head_offset />
+        <xacro:ros2_control_head_offset sim_type="${sim_type}"/>
 
       </ros2_control>
 
@@ -270,14 +292,14 @@
         </hardware>
 
         <!-- arms -->
-        <xacro:ros2_control_arms/>
+        <xacro:ros2_control_arms sim_type="${sim_type}"/>
 
         <!-- torso -->
-        <xacro:ros2_control_torso name="torso_lift" reduction="1.0" />
+        <xacro:ros2_control_torso name="torso_lift" reduction="1.0" sim_type="${sim_type}"/>
 
         <xacro:if value="${wheel_model == 'grassland'}">
           <!-- wheels -->
-          <xacro:ros2_control_wheels />
+          <xacro:ros2_control_wheels sim_type="${sim_type}"/>
         </xacro:if>
 
       </ros2_control>

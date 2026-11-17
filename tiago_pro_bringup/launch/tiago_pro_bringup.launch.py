@@ -50,6 +50,10 @@ class LaunchArguments(LaunchArgumentsBase):
     namespace: DeclareLaunchArgument = CommonArgs.namespace
     is_public_sim: DeclareLaunchArgument = CommonArgs.is_public_sim
     gazebo_version: DeclareLaunchArgument = CommonArgs.gazebo_version
+    sim_type: DeclareLaunchArgument = CommonArgs.sim_type
+    mj_control: DeclareLaunchArgument = CommonArgs.mj_control
+    world_name: DeclareLaunchArgument = CommonArgs.world_name
+    mj_initial_pose: DeclareLaunchArgument = CommonArgs.mj_initial_pose
 
 
 def declare_actions(launch_description: LaunchDescription, launch_args: LaunchArguments):
@@ -122,7 +126,11 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
                           'is_public_sim': launch_args.is_public_sim,
                           'gazebo_version': launch_args.gazebo_version,
                           'has_teleop_arms': launch_args.has_teleop_arms,
-                          'has_wrist_camera': launch_args.has_wrist_camera
+                          'has_wrist_camera': launch_args.has_wrist_camera,
+                          'sim_type': launch_args.sim_type,
+                          'mj_control': launch_args.mj_control,
+                          'world_name': launch_args.world_name,
+                          'mj_initial_pose': launch_args.mj_initial_pose
                           })
 
     launch_description.add_action(robot_state_publisher)
