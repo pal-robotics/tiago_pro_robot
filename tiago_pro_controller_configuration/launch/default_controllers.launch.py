@@ -46,6 +46,7 @@ class LaunchArguments(LaunchArgumentsBase):
     use_sim_time: DeclareLaunchArgument = CommonArgs.use_sim_time
     is_public_sim: DeclareLaunchArgument = CommonArgs.is_public_sim
     namespace: DeclareLaunchArgument = CommonArgs.namespace
+    gazebo_version: DeclareLaunchArgument = CommonArgs.gazebo_version
 
 
 def declare_actions(launch_description: LaunchDescription, launch_args: LaunchArguments):
@@ -262,6 +263,7 @@ def launch_mobile_base_controller(context, *args, **kwargs):
     base_type = read_launch_argument('base_type', context)
     use_sim_time = read_launch_argument('use_sim_time', context)
     is_public_sim = read_launch_argument('is_public_sim', context)
+    gazebo_version = read_launch_argument('gazebo_version', context)
 
     base_controller_package = base_type + '_controller_configuration'
 
@@ -271,6 +273,7 @@ def launch_mobile_base_controller(context, *args, **kwargs):
         launch_arguments={
             'use_sim_time': use_sim_time,
             'is_public_sim': is_public_sim,
+            'gazebo_version': gazebo_version,
         }
     )
 
