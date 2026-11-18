@@ -2,6 +2,11 @@
 Changelog for package tiago_pro_controller_configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Pass gazebo_version to omni base launch file
+* Contributors: Andrew Hoelscher
+
 2.5.5 (2026-11-17)
 ------------------
 
